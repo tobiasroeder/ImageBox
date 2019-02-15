@@ -6,7 +6,9 @@ https://tobiasroeder.github.io/imagebox/{version}/imagebox.min.css
 https://tobiasroeder.github.io/imagebox/{version}/imagebox.min.js
 ```
 **OR:**
-```https://tobiasroeder.github.io/imagebox/addimagebox.js```
+```
+https://tobiasroeder.github.io/imagebox/addimagebox.js
+```
 (this file will include the newest version from all files which are needed)
 
 ---
