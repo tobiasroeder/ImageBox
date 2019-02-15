@@ -27,4 +27,4 @@ add to the `<img>` tag the following attributes:
 ```html
 <img src="img_small.jpg" onclick="imagebox('open', this);" data-imagebox="image" data-imagebox-src="img_big.jpg" data-imagebox-description="Lorem ipsum">
 ```
-Full example here: https://tobiasroeder.github.io/imagebox/documentation#example.
+Full example here: https://tobiasroeder.github.io/imagebox#example.
