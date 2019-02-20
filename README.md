@@ -1,13 +1,13 @@
 # ImageBox Documentation
 
 **Include this files:**
-```
-https://tobiasroeder.github.io/imagebox/{version}/imagebox.min.css
-https://tobiasroeder.github.io/imagebox/{version}/imagebox.min.js
+```html
+<link rel="stylesheet" href="https://tobiasroeder.github.io/imagebox/{version}/imagebox.min.css">
+<script src="https://tobiasroeder.github.io/imagebox/{version}/imagebox.min.js"></script>
 ```
 **OR:**
-```
-https://tobiasroeder.github.io/imagebox/addimagebox.js
+```html
+<script src="https://tobiasroeder.github.io/imagebox/addimagebox.js"></script>
 ```
 (this file will include the newest version from all files which are needed)
 
