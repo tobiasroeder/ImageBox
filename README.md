@@ -2,7 +2,7 @@
 
 **Include this files:**
 ```html
-<link rel="stylesheet" href="https://tobiasroeder.github.io/imagebox/{version}/imagebox.min.css">
+<link rel="stylesheet" type="text/css" href="https://tobiasroeder.github.io/imagebox/{version}/imagebox.min.css">
 <script src="https://tobiasroeder.github.io/imagebox/{version}/imagebox.min.js"></script>
 ```
 **OR:**
