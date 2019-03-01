@@ -14,6 +14,7 @@
 ---
 
 **How to works:**
+
 add to the `<img>` tag the following attributes:
 
 - `onclick="imagebox(this)"`
