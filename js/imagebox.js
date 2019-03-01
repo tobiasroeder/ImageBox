@@ -1,5 +1,5 @@
 // ======================================================
-// ImageBox v1.0.2
+// ImageBox v1.0.3
 //
 // Creative Commons Attribution 4.0 International License
 // https://tobiasroeder.github.io/imagebox/license
@@ -13,7 +13,7 @@
 function fadeOut(el) {
 	el.style.opacity = 1;
 	(function fade() {
-		if ((el.style.opacity -= .1) < 0) {
+		if ((el.style.opacity -= .05) < 0) {
 			el.style.display = "none";
 		}
 		else {
@@ -38,12 +38,12 @@ function fadeIn(el, display) {
 
 
 // imagebox
-function imagebox(action, e) {
+function imagebox(e) {
 
 	// get attribute as variable
 	var dataImagebox = e.getAttribute("data-imagebox");
 
-	if (action == "open" && dataImagebox == "image") {
+	if (dataImagebox == "image" || dataImagebox == "") {
 		
 		// add imagebox class to the body
 		document.body.classList.add("imagebox");
@@ -59,7 +59,7 @@ function imagebox(action, e) {
 		imgbox.innerHTML = '<div class="ib-background"></div>'+
 			'<div class="ib-content">'+
 			'<div class="ib-toolbar">'+
-			'<div class="ib-close" onclick="imagebox(' + "'close'" + ', this)"></div>'+
+			'<div class="ib-close" onclick="closeImagebox()"></div>'+
 			'</div>'+
 			'<div class="ib-image"></div>'+
 			'<div class="ib-description"></div>'+
@@ -87,29 +87,37 @@ function imagebox(action, e) {
 		dataDescription = e.getAttribute("data-imagebox-description");
 		var imageboxDescription = document.getElementsByClassName("ib-description")[0];
 		imageboxDescription.textContent = dataDescription;
+		
+		// a little feature for the description
+		// if {loc} is there, add the location class
+		if (dataDescription.indexOf("{loc}") > -1) {
+			imageboxDescription.classList.add('location');
+			dataDescription = dataDescription.replace(/{loc}/, '');
+			imageboxDescription.textContent = dataDescription;
+		}
 
 		// close the imagebox on click the imagebox content function
 		var imgboxContent = document.getElementsByClassName("ib-content")[0];
 		imgboxContent.addEventListener("click", function() {
-			imagebox('close', imgboxContent);
+			closeImagebox();
 		});
 
 	}
-	
 
-	// close + remove imagebox
-	if (action == "close") {
-		// remove imagebox class to the body
-		document.body.classList.remove("imagebox");
-		var imgbox = document.getElementById("imagebox");
-		fadeOut(imgbox);
+}
 
-		if (imgbox.classList.contains("ib-remove")) {
-			setTimeout(function() {
-				imgbox.remove();
-			}, 500);
-		}
+function closeImagebox() {
+	// remove imagebox class to the body
+	document.body.classList.remove("imagebox");
 
+	// fade imagebox out
+	var imgbox = document.getElementById("imagebox");
+	fadeOut(imgbox);
+
+	// remove imagebox after 500ms
+	if (imgbox.classList.contains("ib-remove")) {
+		setTimeout(function() {
+			imgbox.remove();
+		}, 500);
 	}
-
 }
