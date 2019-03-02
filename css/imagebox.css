@@ -155,3 +155,11 @@ img[data-imagebox] {
   0% { transform: translate(-50%, -50%) rotate(0deg) }
   100% { transform: translate(-50%, -50%) rotate(360deg) }
 }
+
+@media screen and (max-width: 720px) {
+	
+	#imagebox .ib-content .ib-image .ib-description {
+		padding: 4px 0 0;
+	}
+	
+}
