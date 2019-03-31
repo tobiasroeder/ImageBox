@@ -1,5 +1,5 @@
 // ======================================================
-// ImageBox v1.0.3
+// ImageBox v1.0.4 ;)
 //
 // Creative Commons Attribution 4.0 International License
 // https://tobiasroeder.github.io/imagebox/license
@@ -8,6 +8,8 @@
 // Copyright 2019 ImageBox
 //
 // ======================================================
+
+console.log('ImageBox v1.0.4\nhttp://tobiasroeder.github.io/imagebox');
 
 // fadeOut (fade.js)
 function fadeOut(el) {
@@ -36,6 +38,25 @@ function fadeIn(el, display) {
 	})();
 }
 
+// get all img tags width the data attribute data-imagebox
+function imageboxFinder() {
+	
+	// data-imagebox
+    var imgs = document.querySelectorAll('img[data-imagebox]');
+	
+	for (var i = 0; i < imgs.length; i++) {
+		imgs[i].setAttribute('onclick','imagebox(this)');
+    }
+	
+	// data-imagebox = gallery
+	var imgGallery = document.querySelectorAll('img[data-imagebox="gallery"]');
+	for (var j = 0; j < imgGallery.length; j++) {
+		imgGallery[j].setAttribute('data-imagebox-index',j);
+    }
+	
+}
+
+imageboxFinder();
 
 // imagebox
 function imagebox(e) {
@@ -90,10 +111,12 @@ function imagebox(e) {
 		
 		// a little feature for the description
 		// if {loc} is there, add the location class
-		if (dataDescription.indexOf("{loc}") > -1) {
-			imageboxDescription.classList.add('location');
-			dataDescription = dataDescription.replace(/{loc}/, '');
-			imageboxDescription.textContent = dataDescription;
+		if (dataDescription) {
+			if (dataDescription.indexOf("{loc}") > -1) {
+				imageboxDescription.classList.add('location');
+				dataDescription = dataDescription.replace(/{loc}/, '');
+				imageboxDescription.textContent = dataDescription;
+			}
 		}
 
 		// close the imagebox on click the imagebox content function
@@ -106,6 +129,7 @@ function imagebox(e) {
 
 }
 
+// close imagebox
 function closeImagebox() {
 	// remove imagebox class to the body
 	document.body.classList.remove("imagebox");
