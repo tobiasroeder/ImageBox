@@ -17,7 +17,6 @@
 
 add to the `<img>` tag the following attributes:
 
-- `onclick="imagebox(this)"`
 - `data-imagebox`
 - `data-imagebox-src="img_big.jpg"` _(voluntary, else it use the src attribute)_
 - `data-imagebox-description="Lorem ipsum"`
@@ -30,6 +29,6 @@ add to the `<img>` tag the following attributes:
 
 **Example:**
 ```html
-<img src="img_small.jpg" onclick="imagebox(this)" data-imagebox data-imagebox-src="img_big.jpg" data-imagebox-description="Lorem ipsum">
+<img src="img_small.jpg" data-imagebox data-imagebox-src="img_big.jpg" data-imagebox-description="Lorem ipsum">
 ```
 Full example here: https://tobiasroeder.github.io/imagebox#example.
