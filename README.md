@@ -1,4 +1,3 @@
-﻿
 # ImageBox Documentation
 
 **Include this files:**
@@ -60,5 +59,5 @@ addimagebox
 
 ---
 
-Full example here: https://tobiasroeder.github.io/imagebox#example.
+Full example here: https://tobiasroeder.github.io/imagebox#example.  
 [Try it Yourself](https://codepen.io/tobiasroeder/full/wZeBNL)
