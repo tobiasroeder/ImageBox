@@ -217,6 +217,9 @@ function imagebox(e) {
 				'</span> / <span class="ib-count-index">'+
 				(imgGalleryLength + 1)+
 				'</span></div>';
+			
+			// swipe control on mobile devices
+			imageboxMobileDetection(dataImageboxIndex);
 
 		} else {
 			galleryControl = '';
@@ -273,9 +276,6 @@ function imagebox(e) {
 			imgboxLoading.style.opacity = '0';
 			imgboxImage.style.opacity = '1';
 		};
-
-		// swipe control on mobile devices
-		imageboxMobileDetection(dataImageboxIndex);
 
 	}
 
