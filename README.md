@@ -1,3 +1,4 @@
+﻿
 # ImageBox Documentation
 
 **Include this files:**
@@ -17,7 +18,8 @@
 
 add to the `<img>` tag the following attributes:
 
-- `data-imagebox`
+- `data-imagebox`  _(single image)_
+- `data-imagebox="gallery"` _(gallery)_
 - `data-imagebox-src="img_big.jpg"` _(voluntary, else it use the src attribute)_
 - `data-imagebox-description="Lorem ipsum"`
 
@@ -25,10 +27,38 @@ add to the `<img>` tag the following attributes:
 
 `data-imagebox-description="{loc} Lorem ipsum"` _the {loc} will display an small location icon in the beginning_
 
+**addImageBox:**
+
+add to the `<script>` tag the following attribute:
+
+- `data-addimagebox-version="1.0.0"` _optional otherwise it will use the newest version_
+
 ---
 
 **Example:**
+
+minimal (single image)
+```html
+<img src="img_small.jpg" data-imagebox>
+```
+maximal (single image)
 ```html
 <img src="img_small.jpg" data-imagebox data-imagebox-src="img_big.jpg" data-imagebox-description="Lorem ipsum">
 ```
-Live example here: https://tobiasroeder.github.io/imagebox#example.
+minimal (gallery)
+```html
+<img src="img_small.jpg" data-imagebox="gallery">
+```
+maximal (gallery)
+```html
+<img src="img_small.jpg" data-imagebox="gallery" data-imagebox-src="img_big.jpg" data-imagebox-description="Lorem ipsum">
+```
+addimagebox
+```html
+<script src="https://tobiasroeder.github.io/imagebox/addimagebox.js" data-addimagebox-version="1.0.4"></script>
+```
+
+---
+
+Full example here: https://tobiasroeder.github.io/imagebox#example.
+[Try it Yourself](https://codepen.io/tobiasroeder/full/wZeBNL)
