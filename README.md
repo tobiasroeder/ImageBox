@@ -30,7 +30,7 @@ add to the `<img>` tag the following attributes:
 
 add to the `<script>` tag the following attribute:
 
-- `data-addimagebox-version="1.0.0"` _optional otherwise it will use the newest version_
+- `data-addimagebox-version="1.0.0"` _optional, otherwise it will use the newest version_
 
 ---
 
