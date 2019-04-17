@@ -75,8 +75,8 @@ img[data-imagebox] {
 
 #imagebox .ib-content .ib-toolbar div {
 	position: absolute;
-	width: 41px;
-	height: 41px;
+	width: 21px;
+	height: 21px;
 	padding: 10px;
 	background: #858585 no-repeat center center;
 	background-size: 21px 21px;
