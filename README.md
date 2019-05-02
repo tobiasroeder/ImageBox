@@ -13,7 +13,7 @@
 
 ---
 
-**How to works:**
+**How it works:**
 
 add to the `<img>` tag the following attributes:
 
