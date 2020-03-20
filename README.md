@@ -1,6 +1,6 @@
 # ImageBox Documentation
 
-[Documentation for 1.1.0](https://tobiasroeder.github.io/imagebox/1.1.0)
+[Documentation for 1.1.0](https://tobiasroeder.github.io/imagebox/1.1.0)<br>
 There are some difference between 1.1.0 and 1.2.0 [view Release](https://github.com/tobiasroeder/imagebox/releases/tag/1.2.0)
 
 **Include this files:**
