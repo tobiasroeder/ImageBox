@@ -92,7 +92,7 @@ addimagebox
 
 **Difference between imagebox.js and imagebox.ie.js:**
 
-In imagebox.js is the imagebox an object with init, finder, options, open, close, switch, prev, next and caption functions. The IE11 and Edge Browser doesn't support objects, thats why each function is a single function. In the imagebox.ie.js the imageboxOptions function was removed because it only caused problems. 
+In imagebox.js is the imagebox an object with init, finder, options, open, close, switch, prev, next and caption functions. The IE11 and Edge Browser doesn't support objects, thats why each function is a single function. In the imagebox.ie.js the imageboxOptions function was removed because it only caused problems.<br>
 With ImageBox v1.2.0 it's possible to close the imagebox with the 'Esc' button, but in imagebox.js it's checked with `event.code == 'Escape'` and in imagebox.ie.js with `event.key == 'Esc'`.
 
 ---
