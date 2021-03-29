@@ -1,37 +1,137 @@
-## Welcome to GitHub Pages
+## Documentation
 
-You can use the [editor on GitHub](https://github.com/tobiasroeder/ImageBox/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+ImageBox latest version [1.3.0](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.0)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+***
 
-### Markdown
+### Contents
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+- [Include files](#include)
+- [Include files (IE)](#include-ie)
+- [How it works](#how-it-works)
+- [Options](#options)
+- [Examples](#examples)
+- [Tested in](#tested-in)
+- [Try it yourself](#try-out)
 
-```markdown
-Syntax highlighted code block
+***
 
-# Header 1
-## Header 2
-### Header 3
+<div id="include"></div>
+### Include this files:
 
-- Bulleted
-- List
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.0/dist/imagebox.min.css">
+<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.0/dist/imagebox.min.js"></script>
+```
+***
 
-1. Numbered
-2. List
+<div id="include-ie"></div>
+### If IE support is needed:
 
-**Bold** and _Italic_ and `Code` text
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.min.css">
+<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.ie.min.js"></script>
+```
+> Currently only version 1.2.0 available
 
-[Link](url) and ![Image](src)
+***
+
+<div id="how-it-works"></div>
+### How it works:
+
+add to the `<img>` tag the following attributes:
+
+- `data-imagebox` _(single image)_
+- `data-imagebox="gallery"` _(gallery)_
+- `data-imagebox-src="img_big.jpg"` _(voluntary, else it use the src attribute)_
+- `data-imagebox-caption="Lorem ipsum"`
+
+### Small feature for the caption:
+
+- `data-imagebox-caption="{loc} Lorem ipsum"` _(the {loc} will display an small location icon in the beginning)_
+
+### Multiple galleries
+
+- `data-imagebox="gallery-ID"` _(each image with this attribute and this name is bundled to a gallery)_
+
+<div id="options"></div>
+### Options
+
+Parameter | Type | Default | Info
+--- | --- | --- | ---
+info | bool | false | display a info in the console
+swipeToChange | bool | true | change between images in the gallery with a simple swipe (right/left)
+swipeToClose | bool | true | close the ImageBox (single image/gallery) (top/down)
+keyControls | bool | true | `Esc` close ImageBox, `ArrowLeft` previous image, `ArrowRight` next image
+closeEverywhere | bool | true | close the ImageBox everywhere (only single image)
+
+#### Example:
+
+```javascript
+// not available in imagebox.ie.js (Edge and IE)
+imagebox.options({
+  info: false,
+  swipeToChange: true,
+  swipeToClose: true,
+  keyControls: true,
+  closeEverywhere: true
+});
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+***
 
-### Jekyll Themes
+<div id="examples"></div>
+### Examples:
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/tobiasroeder/ImageBox/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+single image
 
-### Support or Contact
+```html
+<img src="img_small.jpg" data-imagebox data-imagebox-src="img_big.jpg" data-imagebox-caption="Lorem ipsum">
+```
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+gallery
+
+```html
+<img src="img_small.jpg" data-imagebox="gallery" data-imagebox-src="img_big.jpg" data-imagebox-caption="Lorem ipsum">
+```
+
+multiple gallery
+
+```html
+<!-- Gallery 1 -->
+<img src"img/san-francisco.jpg" alt="San Francisco" data-imagebox="g1">
+<img src"img/new-york.jpg" alt="New York" data-imagebox="g1">
+
+<!-- Gallery 2 -->
+<img src"img/seattle.jpg" alt="Seattle" data-imagebox="g2">
+<img src"img/detroit.jpg" alt="Detroit" data-imagebox="g2">
+```
+
+***
+
+### Live examples:
+
+An live example can be found on CodePen. You can also play there with the ImageBox around.
+- [https://codepen.io/tobiasroeder/pen/wZeBNL](https://codepen.io/tobiasroeder/pen/wZeBNL)
+
+***
+
+<div id="tested-in"></div>
+### Tested in:
+
+Browser | Version | Known Issues
+--- | --- | ---
+Safari | 14.0.3 | 
+Safari (iOS) | 14.0 | 
+Chrome | 89.0.4389.90 | 
+Opera | 75.0.3969.93 | 
+Firefox | 87.0 | 
+Chrome (Android) | 80.0.3987.162 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
+Samsung Internet | 13.2.3.2 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
+
+> imagebox.js (v1.3.0)
+
+***
+
+<div id="try-out"></div>
+### [Try it yourself](https://codepen.io/tobiasroeder/pen/wZeBNL)
