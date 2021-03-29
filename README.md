@@ -108,8 +108,8 @@ Safari (iOS) | 14.0 |
 Chrome | 89.0.4389.90 | 
 Opera | 75.0.3969.93 | 
 Firefox | 87.0 | 
-Chrome (Android) | 80.0.3987.162 | [#10](https://github.com/tobiasroeder/ImageBox/issues/10)
-Samsung Internet | 13.2.3.2 | [#10](https://github.com/tobiasroeder/ImageBox/issues/10)
+Chrome (Android) | 80.0.3987.162 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
+Samsung Internet | 13.2.3.2 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
 
 > imagebox.css & imagebox.js (v1.3.0)
 
