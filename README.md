@@ -1,101 +1,118 @@
-# ImageBox Documentation
+## Documentation
 
-[Documentation for 1.1.0](https://tobiasroeder.github.io/imagebox/1.1.0)<br>
-There are some difference between 1.1.0 and 1.2.0 [view Release](https://github.com/tobiasroeder/imagebox/releases/tag/1.2.0)
+ImageBox latest version [1.3.0](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.0)
 
-**Include this files:**
+***
+
+### Include this files:
+
 ```html
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.min.css">
-<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.0/dist/imagebox.min.css">
+<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.0/dist/imagebox.min.js"></script>
 ```
-**OR:**
-```html
-<script src="https://tobiasroeder.github.io/imagebox/addimagebox.js"></script>
-```
-> (this file will include the newest version from all files which are needed)
+***
 
----
+### If IE support is needed:
 
-**If  IE support is needed:**
 ```html
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.min.css">
 <script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.ie.min.js"></script>
 ```
-**OR:**
-```html
-<script src="https://tobiasroeder.github.io/imagebox/addimagebox.js" data-addimagebox="ie"></script>
-```
+> Currently only version 1.2.0 available
 
----
+***
 
-**How it works:**
+### How it works:
 
 add to the `<img>` tag the following attributes:
 
-- `data-imagebox`  _(single image)_
+- `data-imagebox` _(single image)_
 - `data-imagebox="gallery"` _(gallery)_
 - `data-imagebox-src="img_big.jpg"` _(voluntary, else it use the src attribute)_
 - `data-imagebox-caption="Lorem ipsum"`
 
-**Small feature for the caption:**
+### Small feature for the caption:
 
-`data-imagebox-caption="{loc} Lorem ipsum"` _the {loc} will display an small location icon in the beginning_
+- `data-imagebox-caption="{loc} Lorem ipsum"` _(the {loc} will display an small location icon in the beginning)_
 
-**addImageBox:**
+### Multiple galleries:
 
-add to the `<script>` tag the following attribute:
+- `data-imagebox="gallery-ID"` _(each image with this attribute and this name is bundled to a gallery)_
 
-- `data-addimagebox-version="1.0.0"` _optional, otherwise it will use the newest version_
+### Options:
 
-**Options:**
- ``` javascript
-// imagebox.js
+Parameter | Type | Default | Info
+--- | --- | --- | ---
+info | bool | false | Display an info about the ImageBox in the console
+swipeToChange | bool | true | Change between images in the gallery with a simple swipe (right/left)
+swipeToClose | bool | true | Close the ImageBox (single image/gallery) (top/down)
+keyControls | bool | true | `Esc` close ImageBox, `ArrowLeft` previous image, `ArrowRight` next image
+closeEverywhere | bool | true | Close the ImageBox everywhere (only single image)
+
+#### Example:
+
+```javascript
+// not available in imagebox.ie.js (Edge and IE)
 imagebox.options({
-	 info: true;	// or false
-});
-
-// imagebox.ie.js (only Edge Browser)
-imageboxOptions({
-	 info: true;	// or false
+  info: false,
+  swipeToChange: true,
+  swipeToClose: true,
+  keyControls: true,
+  closeEverywhere: true
 });
 ```
 
----
+***
 
-**Example:**
+### Examples:
 
 single image
+
 ```html
 <img src="img_small.jpg" data-imagebox data-imagebox-src="img_big.jpg" data-imagebox-caption="Lorem ipsum">
 ```
+
 gallery
+
 ```html
 <img src="img_small.jpg" data-imagebox="gallery" data-imagebox-src="img_big.jpg" data-imagebox-caption="Lorem ipsum">
 ```
-addimagebox
+
+multiple gallery
+
 ```html
-<script src="https://tobiasroeder.github.io/imagebox/addimagebox.js" data-addimagebox="ie" data-addimagebox-version="1.0.4"></script>
+<!-- Gallery 1 -->
+<img src="img/san-francisco.jpg" alt="San Francisco" data-imagebox="g1">
+<img src="img/new-york.jpg" alt="New York" data-imagebox="g1">
+
+<!-- Gallery 2 -->
+<img src="img/seattle.jpg" alt="Seattle" data-imagebox="g2">
+<img src="img/detroit.jpg" alt="Detroit" data-imagebox="g2">
 ```
 
----
+***
 
-**Tested in:**
+### Live example:
 
-|imagebox.js|Safari|Safari iOS|Firefox|Opera|
-|:--|:--|:--|:--|:--|
-||13.0.5|13.3.1|74.0|67.0.3575.79|
-|**imagebox.ie.js**|**IE11**|**Edge**|
-||11.726.16299.0|41.16299.726.0|
+An live example can be found on CodePen. You can also play there with the ImageBox around.
+- [https://codepen.io/tobiasroeder/pen/wZeBNL](https://codepen.io/tobiasroeder/pen/wZeBNL)
 
+***
 
----
+### Tested in:
 
-**Difference between imagebox.js and imagebox.ie.js:**
+Browser | Version | Known Issues
+--- | --- | ---
+Safari | 14.0.3 | 
+Safari (iOS) | 14.0 | 
+Chrome | 89.0.4389.90 | 
+Opera | 75.0.3969.93 | 
+Firefox | 87.0 | 
+Chrome (Android) | 80.0.3987.162 | [#10](https://github.com/tobiasroeder/ImageBox/issues/10)
+Samsung Internet | 13.2.3.2 | [#10](https://github.com/tobiasroeder/ImageBox/issues/10)
 
-In imagebox.js is the imagebox an object with init, finder, options, open, close, switch, prev, next and caption methods. The IE11 and Edge Browser doesn't support objects, thats why each method is a single function. In the imagebox.ie.js the imageboxOptions function was removed because it only caused problems.<br>
-With ImageBox v1.2.0 it's possible to close the imagebox with the 'Esc' button, but in imagebox.js it's checked with `event.code == 'Escape'` and in imagebox.ie.js with `event.key == 'Esc'`.
+> imagebox.css & imagebox.js (v1.3.0)
 
----
+***
 
-Full example here: https://tobiasroeder.github.io/imagebox#example.  
-[Try it Yourself](https://codepen.io/tobiasroeder/full/wZeBNL)
+### [Try it yourself](https://codepen.io/tobiasroeder/pen/wZeBNL)
