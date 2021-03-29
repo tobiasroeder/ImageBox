@@ -1,1 +1,6 @@
+title: ImageBox
+description: Display an image in a responsive imagebox without jQuery.
+logo: images/logo.png
 theme: jekyll-theme-minimal
+plugins:
+  - jekyll-target-blank
