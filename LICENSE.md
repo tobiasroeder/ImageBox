@@ -1,3 +1,5 @@
+Important: License and copyright notice as a comment in the source code or in the console.log is sufficient!
+
 Attribution 4.0 International
 
 =======================================================================
