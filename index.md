@@ -99,12 +99,12 @@ multiple gallery
 
 ```html
 <!-- Gallery 1 -->
-<img src"img/san-francisco.jpg" alt="San Francisco" data-imagebox="g1">
-<img src"img/new-york.jpg" alt="New York" data-imagebox="g1">
+<img src="img/san-francisco.jpg" alt="San Francisco" data-imagebox="g1">
+<img src="img/new-york.jpg" alt="New York" data-imagebox="g1">
 
 <!-- Gallery 2 -->
-<img src"img/seattle.jpg" alt="Seattle" data-imagebox="g2">
-<img src"img/detroit.jpg" alt="Detroit" data-imagebox="g2">
+<img src="img/seattle.jpg" alt="Seattle" data-imagebox="g2">
+<img src="img/detroit.jpg" alt="Detroit" data-imagebox="g2">
 ```
 
 ***
