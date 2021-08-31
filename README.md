@@ -78,7 +78,7 @@ gallery
 <img src="img_small.jpg" data-imagebox="gallery" data-imagebox-src="img_big.jpg" data-imagebox-caption="Lorem ipsum">
 ```
 
-multiple gallery
+multiple galleries
 
 ```html
 <!-- Gallery 1 -->
