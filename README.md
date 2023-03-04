@@ -1,14 +1,14 @@
 ## Documentation
 
-ImageBox latest version [1.3.0](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.0)
+ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.1)
 
 ***
 
 ### Include this files:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.0/dist/imagebox.min.css">
-<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.0/dist/imagebox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.1/dist/imagebox.min.css">
+<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.1/dist/imagebox.min.js"></script>
 ```
 ***
 
@@ -111,8 +111,8 @@ Firefox | 87.0 |
 Chrome (Android) | 80.0.3987.162 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
 Samsung Internet | 13.2.3.2 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
 
-> imagebox.css & imagebox.js (v1.3.0)
 
 ***
+> imagebox.css & imagebox.js (v1.3.1)
 
 ### [Try it yourself](https://codepen.io/tobiasroeder/pen/wZeBNL)

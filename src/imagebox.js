@@ -1,5 +1,5 @@
 /*
-	ImageBox v1.3.0
+	ImageBox v1.3.1
 	(c) Tobias Roeder
 	tobiasroeder.github.io/imagebox/license
 */
