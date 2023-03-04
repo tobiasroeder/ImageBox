@@ -49,7 +49,12 @@ const imagebox = {
 		ibElmts.forEach(ibElmt => {
 			let dataImagebox = ibElmt.dataset.imagebox;
 
-			ibElmt.setAttribute('onclick', 'imagebox.open(this)');
+			ibElmt.addEventListener('click', function (event) {
+				event.preventDefault();
+				event.stopPropagation();
+
+				imagebox.open(this);
+			});
 
 			if (dataImagebox === '') return
 			if (!imagebox.galleryNames.includes(dataImagebox)) imagebox.galleryNames.push(dataImagebox);
@@ -121,17 +126,19 @@ const imagebox = {
 		let imgbox = document.querySelector('#imagebox');
 
 		// gallery
-		let galleryControl = '',
-			galleryInfo = '',
-			galleryPlaceholderImage = '',
-			closeEverywhere = '';
+		let galleryControl = null;
+		let galleryInfo = null;
+		let galleryPlaceholderImage = null;
+		let dataImageboxImageIndex = null;
+		let dataImageboxGalleryIndex = null;
+		let imgGalleryLength = null;
+		let prevDisabled = null;
+		let nextDisabled = null;
 
 		if (isGallery) {
-			let dataImageboxImageIndex = parseInt(elmt.dataset.imageboxImageIndex),
-				dataImageboxGalleryIndex = parseInt(elmt.dataset.imageboxGalleryIndex),
-				imgGalleryLength = imagebox.galleries[dataImageboxGalleryIndex].length,
-				prevDisabled = '',
-				nextDisabled = '';
+			dataImageboxImageIndex = parseInt(elmt.dataset.imageboxImageIndex);
+			dataImageboxGalleryIndex = parseInt(elmt.dataset.imageboxGalleryIndex);
+			imgGalleryLength = imagebox.galleries[dataImageboxGalleryIndex].length;
 
 			// disable button
 			// imagebox index == the first one
@@ -146,8 +153,8 @@ const imagebox = {
 
 			// create control for gallery
 			galleryControl = `<div class="ib-control">
-					<div class="ib-control-left" onclick="imagebox.prev(${dataImageboxImageIndex}, ${dataImageboxGalleryIndex})" ${prevDisabled}></div>
-					<div class="ib-control-right" onclick="imagebox.next(${dataImageboxImageIndex}, ${dataImageboxGalleryIndex})" ${nextDisabled}></div>
+					<div class="ib-control-left" ${prevDisabled}></div>
+					<div class="ib-control-right" ${nextDisabled}></div>
 				</div>`;
 
 			// create info eg. '2/7' for gallery
@@ -157,16 +164,14 @@ const imagebox = {
 
 			// create next image placeholder
 			galleryPlaceholderImage = '<img src="" class="ib-image ib-image-next ib-hidden">';
-		} else {
-			if (imagebox.settings.closeEverywhere) closeEverywhere = ' onclick="imagebox.close(this)"';
 		}
 
 		// fill the imagebox element
 		imgbox.innerHTML = `<div class="ib-loading"></div>
-			<div class="ib-content"${closeEverywhere}>
+			<div class="ib-content">
 				<div class="ib-topbar">${galleryInfo}
 					<div class="ib-buttons">
-						<div class="ib-close ib-button" onclick="imagebox.close()"></div>
+						<div class="ib-close ib-button"></div>
 					</div>
 				</div>
 				${galleryControl}
@@ -176,6 +181,32 @@ const imagebox = {
 				</div>
 				<div class="ib-caption">Lorem Ipsum</div>
 			</div>`;
+
+		if (isGallery) {
+			imgbox.querySelector('.ib-control-left').addEventListener('click', event => {
+				event.preventDefault();
+				event.stopPropagation();
+
+				imagebox.prev(dataImageboxImageIndex--, dataImageboxGalleryIndex);
+			});
+
+			imgbox.querySelector('.ib-control-right').addEventListener('click', event => {
+				event.preventDefault();
+				event.stopPropagation();
+
+				imagebox.next(dataImageboxImageIndex++, dataImageboxGalleryIndex);
+			});
+		} else {
+			if (imagebox.settings.closeEverywhere) {
+				imgbox.querySelector('.ib-content').addEventListener('click', () => {
+					imagebox.close();
+				});
+			}
+		}
+
+		imgbox.querySelector('.ib-close').addEventListener('click', () => {
+			imagebox.close();
+		});
 
 		// data imagebox caption
 		imagebox.caption(elmt);
@@ -225,8 +256,6 @@ const imagebox = {
 			controlLeft.removeAttribute('disabled');
 		}
 
-		controlLeft.setAttribute('onclick', `imagebox.prev(${imageIndex}, ${galleryIndex})`);
-		controlRight.setAttribute('onclick', `imagebox.next(${imageIndex}, ${galleryIndex})`);
 		currentIndex.innerText = (imageIndex + 1);
 
 		let nextImg = document.querySelector('#imagebox .ib-image-next'),
