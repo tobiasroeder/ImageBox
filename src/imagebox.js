@@ -13,22 +13,22 @@ const imagebox = {
 		// display imagebox info
 		if (imagebox.settings.info) console.log('%cImageBox v1.3.0\nhttps://tobiasroeder.github.io/imagebox', 'color:#39c');
 		// imagebox keycontrols
-		if (imagebox.settings.keyControls) {
-			window.onkeyup = (event) => {
+		if (this.settings.keyControls) {
+			window.onkeyup = event => {
 				if (document.body.classList.contains('imagebox')) {
-					switch (event.keyCode) {
-						case 27: // Esc
-							imagebox.close();
+					switch (event.code) {
+						case 'Escape':
+							this.close();
 							break;
 
-						case 37: // left arrow
+						case 'ArrowLeft':
 							{
 								let controlLeft = document.querySelector('.ib-control-left');
 								if (controlLeft) controlLeft.click();
 							}
 							break;
 
-						case 39: // right arrow
+						case 'ArrowRight':
 							{
 								let controlRight = document.querySelector('.ib-control-right');
 								if (controlRight) controlRight.click();
