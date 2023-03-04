@@ -48,17 +48,21 @@ swipeToChange | bool | true | Change between images in the gallery with a simple
 swipeToClose | bool | true | Close the ImageBox (single image/gallery) (top/down).
 keyControls | bool | true | `Esc` close ImageBox, `ArrowLeft` previous image, `ArrowRight` next image.
 closeEverywhere | bool | true | Close the ImageBox everywhere (only single image).
+htmlCaption | bool | false | Enable the ability to render HTML code in the caption.
+autoInit | bool | true | Decide if the ImageBox will be automatically initialized.
 
 #### Example:
 
 ```javascript
-// not available in imagebox.ie.js (Edge and IE)
+// not available in imagebox.ie.js (IE)
 imagebox.options({
   info: false,
   swipeToChange: true,
   swipeToClose: true,
   keyControls: true,
-  closeEverywhere: true
+  closeEverywhere: true,
+  htmlCaption: false,
+  autoInit: true
 });
 ```
 
@@ -103,16 +107,17 @@ An live example can be found on CodePen. You can also play there with the ImageB
 
 Browser | Version | Known Issues
 --- | --- | ---
-Safari | 14.0.3 | 
-Safari (iOS) | 14.0 | 
-Chrome | 89.0.4389.90 | 
-Opera | 75.0.3969.93 | 
-Firefox | 87.0 | 
-Chrome (Android) | 80.0.3987.162 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
-Samsung Internet | 13.2.3.2 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
-
+Safari | 16.2 |
+Safari (iOS) | 16.3.1 |
+Chrome | 110.0.5481.178 |
+Opera | 96.0.4693.31 |
+Firefox | 110.0.1 |
+Microsoft Edge | 110.0.1587.63 |
+<!-- Chrome (Android) | 80.0.3987.162 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
+Samsung Internet | 13.2.3.2 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11) -->
 
 > imagebox.css & imagebox.js (v1.3.1)
 
 ---
+
 ### [Try it yourself](https://codepen.io/tobiasroeder/pen/wZeBNL)
