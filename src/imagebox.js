@@ -6,7 +6,10 @@
 
 // ImageBox
 const imagebox = {
-	init: () => {
+	init(autoload = '') {
+		// Disable auto initialization
+		if (!this.settings.autoInit && autoload === 'autoload') return;
+
 		// display imagebox info
 		if (imagebox.settings.info) console.log('%cImageBox v1.3.0\nhttps://tobiasroeder.github.io/imagebox', 'color:#39c');
 		// imagebox keycontrols
@@ -71,6 +74,7 @@ const imagebox = {
 		swipeToClose: true,
 		keyControls: true,
 		closeEverywhere: true,
+		autoInit: true,
 	},
 	options: ({
 		info = false,
@@ -79,12 +83,14 @@ const imagebox = {
 		keyControls = true,
 		closeEverywhere = true,
 	}) => {
+		autoInit = true,
 		// set settings
 		imagebox.settings.info = info;
 		imagebox.settings.swipeToChange = swipeToChange;
 		imagebox.settings.swipeToClose = swipeToClose;
 		imagebox.settings.keyControls = keyControls;
 		imagebox.settings.closeEverywhere = closeEverywhere;
+		this.settings.autoInit = autoInit;
 	},
 	open: (elmt) => {
 		let isGallery = true,
@@ -342,4 +348,6 @@ const imagebox = {
 
 
 // initialize imagebox
-window.onload = imagebox.init;
+window.addEventListener('load', function() {
+	imagebox.init('autoload');
+});
