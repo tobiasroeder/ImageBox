@@ -11,7 +11,8 @@ const imagebox = {
 		if (!this.settings.autoInit && autoload === 'autoload') return;
 
 		// display imagebox info
-		if (imagebox.settings.info) console.log('%cImageBox v1.3.0\nhttps://tobiasroeder.github.io/imagebox', 'color:#39c');
+		if (this.settings.info) console.log('%cImageBox v1.3.1\nhttps://tobiasroeder.github.io/imagebox', 'color:#39c');
+
 		// imagebox keycontrols
 		if (this.settings.keyControls) {
 			window.onkeyup = event => {
@@ -39,11 +40,11 @@ const imagebox = {
 			};
 		}
 
-		imagebox.finder();
+		this.finder();
 	},
 	galleryNames: [],
 	galleries: [],
-	finder: () => {
+	finder() {
 		let ibElmts = document.querySelectorAll('img[data-imagebox]');
 
 		ibElmts.forEach(ibElmt => {
@@ -82,21 +83,21 @@ const imagebox = {
 		htmlCaption: false,
 		autoInit: true,
 	},
-	options: ({
+	options({
 		info = false,
 		swipeToChange = true,
 		swipeToClose = true,
 		keyControls = true,
 		closeEverywhere = true,
-	}) => {
 		htmlCaption = false,
 		autoInit = true,
+	}) {
 		// set settings
-		imagebox.settings.info = info;
-		imagebox.settings.swipeToChange = swipeToChange;
-		imagebox.settings.swipeToClose = swipeToClose;
-		imagebox.settings.keyControls = keyControls;
-		imagebox.settings.closeEverywhere = closeEverywhere;
+		this.settings.info = info;
+		this.settings.swipeToChange = swipeToChange;
+		this.settings.swipeToClose = swipeToClose;
+		this.settings.keyControls = keyControls;
+		this.settings.closeEverywhere = closeEverywhere;
 		this.settings.htmlCaption = htmlCaption;
 		this.settings.autoInit = autoInit;
 	},
@@ -179,7 +180,7 @@ const imagebox = {
 					<img src="${imageSrc}" class="ib-image ib-image-current">
 					${galleryPlaceholderImage}
 				</div>
-				<div class="ib-caption">Lorem Ipsum</div>
+				<div class="ib-caption"></div>
 			</div>`;
 
 		if (isGallery) {
@@ -290,9 +291,9 @@ const imagebox = {
 
 		imagebox.change(imageIndex, galleryIndex, 'next');
 	},
-	caption: elmt => {
-		let dataCaption = elmt.getAttribute('data-imagebox-caption'),
-			imageboxCaption = document.querySelector('#imagebox .ib-caption');
+	caption(elmt) {
+		let dataCaption = elmt.getAttribute('data-imagebox-caption');
+		let imageboxCaption = document.querySelector('#imagebox .ib-caption');
 
 		if (this.settings.htmlCaption) {
 			imageboxCaption.innerHTML = dataCaption;
