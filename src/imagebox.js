@@ -74,6 +74,7 @@ const imagebox = {
 		swipeToClose: true,
 		keyControls: true,
 		closeEverywhere: true,
+		htmlCaption: false,
 		autoInit: true,
 	},
 	options: ({
@@ -83,6 +84,7 @@ const imagebox = {
 		keyControls = true,
 		closeEverywhere = true,
 	}) => {
+		htmlCaption = false,
 		autoInit = true,
 		// set settings
 		imagebox.settings.info = info;
@@ -90,6 +92,7 @@ const imagebox = {
 		imagebox.settings.swipeToClose = swipeToClose;
 		imagebox.settings.keyControls = keyControls;
 		imagebox.settings.closeEverywhere = closeEverywhere;
+		this.settings.htmlCaption = htmlCaption;
 		this.settings.autoInit = autoInit;
 	},
 	open: (elmt) => {
@@ -262,7 +265,11 @@ const imagebox = {
 		let dataCaption = elmt.getAttribute('data-imagebox-caption'),
 			imageboxCaption = document.querySelector('#imagebox .ib-caption');
 
-		imageboxCaption.textContent = dataCaption;
+		if (this.settings.htmlCaption) {
+			imageboxCaption.innerHTML = dataCaption;
+		} else {
+			imageboxCaption.textContent = dataCaption;
+		}
 
 		// a little feature for the caption
 		// if {loc} is there, add the location class
