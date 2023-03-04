@@ -2,7 +2,7 @@
 
 ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.1)
 
-***
+---
 
 ### Include this files:
 
@@ -10,7 +10,7 @@ ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/release
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.1/dist/imagebox.min.css">
 <script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.1/dist/imagebox.min.js"></script>
 ```
-***
+---
 
 ### If IE support is needed:
 
@@ -20,7 +20,7 @@ ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/release
 ```
 > Currently only version 1.2.0 available
 
-***
+---
 
 ### How it works:
 
@@ -62,7 +62,7 @@ imagebox.options({
 });
 ```
 
-***
+---
 
 ### Examples:
 
@@ -90,14 +90,14 @@ multiple galleries
 <img src="img/detroit.jpg" alt="Detroit" data-imagebox="g2">
 ```
 
-***
+---
 
 ### Live example:
 
 An live example can be found on CodePen. You can also play there with the ImageBox around.
 - [https://codepen.io/tobiasroeder/pen/wZeBNL](https://codepen.io/tobiasroeder/pen/wZeBNL)
 
-***
+---
 
 ### Tested in:
 
@@ -112,7 +112,7 @@ Chrome (Android) | 80.0.3987.162 | [#11](https://github.com/tobiasroeder/ImageBo
 Samsung Internet | 13.2.3.2 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
 
 
-***
 > imagebox.css & imagebox.js (v1.3.1)
 
+---
 ### [Try it yourself](https://codepen.io/tobiasroeder/pen/wZeBNL)
