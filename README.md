@@ -33,7 +33,7 @@ add to the `<img>` tag the following attributes:
 
 ### Small feature for the caption:
 
-- `data-imagebox-caption="{loc} Lorem ipsum"` _(the {loc} will display an small location icon in the beginning)_
+- `data-imagebox-caption="{loc} Lorem ipsum"` _(the {loc} will display a small location icon in the beginning)_
 
 ### Multiple galleries:
 
@@ -43,11 +43,11 @@ add to the `<img>` tag the following attributes:
 
 Parameter | Type | Default | Info
 --- | --- | --- | ---
-info | bool | false | Display an info about the ImageBox in the console
-swipeToChange | bool | true | Change between images in the gallery with a simple swipe (right/left)
-swipeToClose | bool | true | Close the ImageBox (single image/gallery) (top/down)
-keyControls | bool | true | `Esc` close ImageBox, `ArrowLeft` previous image, `ArrowRight` next image
-closeEverywhere | bool | true | Close the ImageBox everywhere (only single image)
+info | bool | false | Display an info about the ImageBox in the console.
+swipeToChange | bool | true | Change between images in the gallery with a simple swipe (right/left).
+swipeToClose | bool | true | Close the ImageBox (single image/gallery) (top/down).
+keyControls | bool | true | `Esc` close ImageBox, `ArrowLeft` previous image, `ArrowRight` next image.
+closeEverywhere | bool | true | Close the ImageBox everywhere (only single image).
 
 #### Example:
 
