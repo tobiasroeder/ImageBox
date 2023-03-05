@@ -47,6 +47,8 @@ const imagebox = {
 	finder() {
 		let ibElmts = document.querySelectorAll('img[data-imagebox]');
 
+		if (this.galleries.length > 0) this.galleries = [];
+
 		ibElmts.forEach(ibElmt => {
 			let dataImagebox = ibElmt.dataset.imagebox;
 
