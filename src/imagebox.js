@@ -1,31 +1,35 @@
 /*
-	ImageBox v1.3.0
+	ImageBox v1.3.1
 	(c) Tobias Roeder
 	tobiasroeder.github.io/imagebox/license
 */
 
 // ImageBox
 const imagebox = {
-	init: () => {
+	init(autoload = '') {
+		// Disable auto initialization
+		if (!this.settings.autoInit && autoload === 'autoload') return;
+
 		// display imagebox info
-		if (imagebox.settings.info) console.log('%cImageBox v1.3.0\nhttps://tobiasroeder.github.io/imagebox', 'color:#39c');
+		if (this.settings.info) console.log('%cImageBox v1.3.1\nhttps://tobiasroeder.github.io/imagebox', 'color:#39c');
+
 		// imagebox keycontrols
-		if (imagebox.settings.keyControls) {
-			window.onkeyup = (event) => {
+		if (this.settings.keyControls) {
+			window.onkeyup = event => {
 				if (document.body.classList.contains('imagebox')) {
-					switch (event.keyCode) {
-						case 27: // Esc
-							imagebox.close();
+					switch (event.code) {
+						case 'Escape':
+							this.close();
 							break;
 
-						case 37: // left arrow
+						case 'ArrowLeft':
 							{
 								let controlLeft = document.querySelector('.ib-control-left');
 								if (controlLeft) controlLeft.click();
 							}
 							break;
 
-						case 39: // right arrow
+						case 'ArrowRight':
 							{
 								let controlRight = document.querySelector('.ib-control-right');
 								if (controlRight) controlRight.click();
@@ -36,17 +40,24 @@ const imagebox = {
 			};
 		}
 
-		imagebox.finder();
+		this.finder();
 	},
 	galleryNames: [],
 	galleries: [],
-	finder: () => {
+	finder() {
 		let ibElmts = document.querySelectorAll('img[data-imagebox]');
+
+		if (this.galleries.length > 0) this.galleries = [];
 
 		ibElmts.forEach(ibElmt => {
 			let dataImagebox = ibElmt.dataset.imagebox;
 
-			ibElmt.setAttribute('onclick', 'imagebox.open(this)');
+			ibElmt.addEventListener('click', function (event) {
+				event.preventDefault();
+				event.stopPropagation();
+
+				imagebox.open(this);
+			});
 
 			if (dataImagebox === '') return
 			if (!imagebox.galleryNames.includes(dataImagebox)) imagebox.galleryNames.push(dataImagebox);
@@ -71,20 +82,26 @@ const imagebox = {
 		swipeToClose: true,
 		keyControls: true,
 		closeEverywhere: true,
+		htmlCaption: false,
+		autoInit: true,
 	},
-	options: ({
+	options({
 		info = false,
 		swipeToChange = true,
 		swipeToClose = true,
 		keyControls = true,
 		closeEverywhere = true,
-	}) => {
+		htmlCaption = false,
+		autoInit = true,
+	}) {
 		// set settings
-		imagebox.settings.info = info;
-		imagebox.settings.swipeToChange = swipeToChange;
-		imagebox.settings.swipeToClose = swipeToClose;
-		imagebox.settings.keyControls = keyControls;
-		imagebox.settings.closeEverywhere = closeEverywhere;
+		this.settings.info = info;
+		this.settings.swipeToChange = swipeToChange;
+		this.settings.swipeToClose = swipeToClose;
+		this.settings.keyControls = keyControls;
+		this.settings.closeEverywhere = closeEverywhere;
+		this.settings.htmlCaption = htmlCaption;
+		this.settings.autoInit = autoInit;
 	},
 	open: (elmt) => {
 		let isGallery = true,
@@ -112,17 +129,19 @@ const imagebox = {
 		let imgbox = document.querySelector('#imagebox');
 
 		// gallery
-		let galleryControl = '',
-			galleryInfo = '',
-			galleryPlaceholderImage = '',
-			closeEverywhere = '';
+		let galleryControl = null;
+		let galleryInfo = null;
+		let galleryPlaceholderImage = null;
+		let dataImageboxImageIndex = null;
+		let dataImageboxGalleryIndex = null;
+		let imgGalleryLength = null;
+		let prevDisabled = null;
+		let nextDisabled = null;
 
 		if (isGallery) {
-			let dataImageboxImageIndex = parseInt(elmt.dataset.imageboxImageIndex),
-				dataImageboxGalleryIndex = parseInt(elmt.dataset.imageboxGalleryIndex),
-				imgGalleryLength = imagebox.galleries[dataImageboxGalleryIndex].length,
-				prevDisabled = '',
-				nextDisabled = '';
+			dataImageboxImageIndex = parseInt(elmt.dataset.imageboxImageIndex);
+			dataImageboxGalleryIndex = parseInt(elmt.dataset.imageboxGalleryIndex);
+			imgGalleryLength = imagebox.galleries[dataImageboxGalleryIndex].length;
 
 			// disable button
 			// imagebox index == the first one
@@ -137,8 +156,8 @@ const imagebox = {
 
 			// create control for gallery
 			galleryControl = `<div class="ib-control">
-					<div class="ib-control-left" onclick="imagebox.prev(${dataImageboxImageIndex}, ${dataImageboxGalleryIndex})" ${prevDisabled}></div>
-					<div class="ib-control-right" onclick="imagebox.next(${dataImageboxImageIndex}, ${dataImageboxGalleryIndex})" ${nextDisabled}></div>
+					<div class="ib-control-left" ${prevDisabled}></div>
+					<div class="ib-control-right" ${nextDisabled}></div>
 				</div>`;
 
 			// create info eg. '2/7' for gallery
@@ -148,16 +167,14 @@ const imagebox = {
 
 			// create next image placeholder
 			galleryPlaceholderImage = '<img src="" class="ib-image ib-image-next ib-hidden">';
-		} else {
-			if (imagebox.settings.closeEverywhere) closeEverywhere = ' onclick="imagebox.close(this)"';
 		}
 
 		// fill the imagebox element
 		imgbox.innerHTML = `<div class="ib-loading"></div>
-			<div class="ib-content"${closeEverywhere}>
+			<div class="ib-content">
 				<div class="ib-topbar">${galleryInfo}
 					<div class="ib-buttons">
-						<div class="ib-close ib-button" onclick="imagebox.close()"></div>
+						<div class="ib-close ib-button"></div>
 					</div>
 				</div>
 				${galleryControl}
@@ -165,8 +182,34 @@ const imagebox = {
 					<img src="${imageSrc}" class="ib-image ib-image-current">
 					${galleryPlaceholderImage}
 				</div>
-				<div class="ib-caption">Lorem Ipsum</div>
+				<div class="ib-caption"></div>
 			</div>`;
+
+		if (isGallery) {
+			imgbox.querySelector('.ib-control-left').addEventListener('click', event => {
+				event.preventDefault();
+				event.stopPropagation();
+
+				imagebox.prev(dataImageboxImageIndex--, dataImageboxGalleryIndex);
+			});
+
+			imgbox.querySelector('.ib-control-right').addEventListener('click', event => {
+				event.preventDefault();
+				event.stopPropagation();
+
+				imagebox.next(dataImageboxImageIndex++, dataImageboxGalleryIndex);
+			});
+		} else {
+			if (imagebox.settings.closeEverywhere) {
+				imgbox.querySelector('.ib-content').addEventListener('click', () => {
+					imagebox.close();
+				});
+			}
+		}
+
+		imgbox.querySelector('.ib-close').addEventListener('click', () => {
+			imagebox.close();
+		});
 
 		// data imagebox caption
 		imagebox.caption(elmt);
@@ -216,8 +259,6 @@ const imagebox = {
 			controlLeft.removeAttribute('disabled');
 		}
 
-		controlLeft.setAttribute('onclick', `imagebox.prev(${imageIndex}, ${galleryIndex})`);
-		controlRight.setAttribute('onclick', `imagebox.next(${imageIndex}, ${galleryIndex})`);
 		currentIndex.innerText = (imageIndex + 1);
 
 		let nextImg = document.querySelector('#imagebox .ib-image-next'),
@@ -252,11 +293,15 @@ const imagebox = {
 
 		imagebox.change(imageIndex, galleryIndex, 'next');
 	},
-	caption: elmt => {
-		let dataCaption = elmt.getAttribute('data-imagebox-caption'),
-			imageboxCaption = document.querySelector('#imagebox .ib-caption');
+	caption(elmt) {
+		let dataCaption = elmt.getAttribute('data-imagebox-caption');
+		let imageboxCaption = document.querySelector('#imagebox .ib-caption');
 
-		imageboxCaption.textContent = dataCaption;
+		if (this.settings.htmlCaption) {
+			imageboxCaption.innerHTML = dataCaption;
+		} else {
+			imageboxCaption.textContent = dataCaption;
+		}
 
 		// a little feature for the caption
 		// if {loc} is there, add the location class
@@ -342,4 +387,6 @@ const imagebox = {
 
 
 // initialize imagebox
-window.onload = imagebox.init;
+window.addEventListener('load', function() {
+	imagebox.init('autoload');
+});

@@ -1,16 +1,16 @@
 ## Documentation
 
-ImageBox latest version [1.3.0](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.0)
+ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.1)
 
-***
+---
 
 ### Include this files:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.0/dist/imagebox.min.css">
-<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.0/dist/imagebox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.1/dist/imagebox.min.css">
+<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.1/dist/imagebox.min.js"></script>
 ```
-***
+---
 
 ### If IE support is needed:
 
@@ -20,7 +20,7 @@ ImageBox latest version [1.3.0](https://github.com/tobiasroeder/imagebox/release
 ```
 > Currently only version 1.2.0 available
 
-***
+---
 
 ### How it works:
 
@@ -33,7 +33,7 @@ add to the `<img>` tag the following attributes:
 
 ### Small feature for the caption:
 
-- `data-imagebox-caption="{loc} Lorem ipsum"` _(the {loc} will display an small location icon in the beginning)_
+- `data-imagebox-caption="{loc} Lorem ipsum"` _(the {loc} will display a small location icon in the beginning)_
 
 ### Multiple galleries:
 
@@ -43,26 +43,30 @@ add to the `<img>` tag the following attributes:
 
 Parameter | Type | Default | Info
 --- | --- | --- | ---
-info | bool | false | Display an info about the ImageBox in the console
-swipeToChange | bool | true | Change between images in the gallery with a simple swipe (right/left)
-swipeToClose | bool | true | Close the ImageBox (single image/gallery) (top/down)
-keyControls | bool | true | `Esc` close ImageBox, `ArrowLeft` previous image, `ArrowRight` next image
-closeEverywhere | bool | true | Close the ImageBox everywhere (only single image)
+info | bool | false | Display an info about the ImageBox in the console.
+swipeToChange | bool | true | Change between images in the gallery with a simple swipe (right/left).
+swipeToClose | bool | true | Close the ImageBox (single image/gallery) (top/down).
+keyControls | bool | true | `Esc` close ImageBox, `ArrowLeft` previous image, `ArrowRight` next image.
+closeEverywhere | bool | true | Close the ImageBox everywhere (only single image).
+htmlCaption | bool | false | Enable the ability to render HTML code in the caption.
+autoInit | bool | true | Decide if the ImageBox will be automatically initialized.
 
 #### Example:
 
 ```javascript
-// not available in imagebox.ie.js (Edge and IE)
+// not available in imagebox.ie.js (IE)
 imagebox.options({
   info: false,
   swipeToChange: true,
   swipeToClose: true,
   keyControls: true,
-  closeEverywhere: true
+  closeEverywhere: true,
+  htmlCaption: false,
+  autoInit: true
 });
 ```
 
-***
+---
 
 ### Examples:
 
@@ -90,29 +94,30 @@ multiple galleries
 <img src="img/detroit.jpg" alt="Detroit" data-imagebox="g2">
 ```
 
-***
+---
 
 ### Live example:
 
 An live example can be found on CodePen. You can also play there with the ImageBox around.
 - [https://codepen.io/tobiasroeder/pen/wZeBNL](https://codepen.io/tobiasroeder/pen/wZeBNL)
 
-***
+---
 
 ### Tested in:
 
 Browser | Version | Known Issues
 --- | --- | ---
-Safari | 14.0.3 | 
-Safari (iOS) | 14.0 | 
-Chrome | 89.0.4389.90 | 
-Opera | 75.0.3969.93 | 
-Firefox | 87.0 | 
-Chrome (Android) | 80.0.3987.162 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
-Samsung Internet | 13.2.3.2 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
+Safari | 16.2 |
+Safari (iOS) | 16.3.1 |
+Chrome | 110.0.5481.178 |
+Opera | 96.0.4693.31 |
+Firefox | 110.0.1 |
+Microsoft Edge | 110.0.1587.63 |
+<!-- Chrome (Android) | 80.0.3987.162 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
+Samsung Internet | 13.2.3.2 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11) -->
 
-> imagebox.css & imagebox.js (v1.3.0)
+> imagebox.css & imagebox.js (v1.3.1)
 
-***
+---
 
 ### [Try it yourself](https://codepen.io/tobiasroeder/pen/wZeBNL)
