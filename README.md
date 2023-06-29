@@ -1,3 +1,5 @@
+[![](https://data.jsdelivr.com/v1/package/gh/tobiasroeder/ImageBox/badge)](https://www.jsdelivr.com/package/gh/tobiasroeder/ImageBox)
+
 ## Documentation
 
 ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.1)
