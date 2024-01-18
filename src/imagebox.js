@@ -1,55 +1,77 @@
 /*
-	ImageBox v1.3.1
-	(c) Tobias Roeder
-	tobiasroeder.github.io/imagebox/license
+    ImageBox v1.3.1
+    (c) Tobias Roeder
+    tobiasroeder.github.io/imagebox/license
 */
 
 // ImageBox
 const imagebox = {
+    galleryNames: [],
+    galleries: [],
+    settings: {
+        info: false,
+        swipeToChange: true,
+        swipeToClose: true,
+        keyControls: true,
+        closeEverywhere: true,
+        htmlCaption: false,
+        autoInit: true,
+    },
+
     init(autoload = '') {
         // Disable auto initialization
-        if (!this.settings.autoInit && autoload === 'autoload') return;
+        if (!this.settings.autoInit && autoload === 'autoload') {
+            return;
+        }
 
         // display imagebox info
-        if (this.settings.info)
+        if (this.settings.info) {
             console.log(
                 '%cImageBox v1.3.1\nhttps://tobiasroeder.github.io/imagebox',
                 'color:#39c'
             );
+        }
 
         // imagebox keycontrols
         if (this.settings.keyControls) {
             window.onkeyup = event => {
-                if (document.body.classList.contains('imagebox')) {
-                    switch (event.code) {
-                        case 'Escape':
-                            this.close();
-                            break;
+                if (!document.body.classList.contains('imagebox')) {
+                    return;
+                }
 
-                        case 'ArrowLeft':
-                            {
-                                let controlLeft =
-                                    document.querySelector('.ib-control-left');
-                                if (controlLeft) controlLeft.click();
-                            }
-                            break;
+                switch (event.code) {
+                    case 'Escape':
+                        this.close();
+                        break;
 
-                        case 'ArrowRight':
-                            {
-                                let controlRight =
-                                    document.querySelector('.ib-control-right');
-                                if (controlRight) controlRight.click();
+                    case 'ArrowLeft':
+                        {
+                            let controlLeft =
+                                document.querySelector('.ib-control-left');
+
+                            if (controlLeft) {
+                                controlLeft.click();
                             }
-                            break;
-                    }
+                        }
+                        break;
+
+                    case 'ArrowRight':
+                        {
+                            let controlRight =
+                                document.querySelector('.ib-control-right');
+
+                            if (controlRight) {
+                                controlRight.click();
+                            }
+                        }
+                        break;
                 }
             };
         }
 
         this.finder();
     },
-    galleryNames: [],
-    galleries: [],
+
     finder() {
         let ibElmts = document.querySelectorAll('img[data-imagebox]');
 
@@ -65,9 +87,13 @@ const imagebox = {
                 imagebox.open(this);
             });
 
-            if (dataImagebox === '') return;
-            if (!imagebox.galleryNames.includes(dataImagebox))
+            if (dataImagebox === '') {
+                return;
+            }
+
+            if (!imagebox.galleryNames.includes(dataImagebox)) {
                 imagebox.galleryNames.push(dataImagebox);
+            }
         });
 
         imagebox.galleryNames.forEach(galleryName => {
@@ -85,15 +111,7 @@ const imagebox = {
             });
         });
     },
-    settings: {
-        info: false,
-        swipeToChange: true,
-        swipeToClose: true,
-        keyControls: true,
-        closeEverywhere: true,
-        htmlCaption: false,
-        autoInit: true,
-    },
+
     options({
         info = false,
         swipeToChange = true,
@@ -112,11 +130,14 @@ const imagebox = {
         this.settings.htmlCaption = htmlCaption;
         this.settings.autoInit = autoInit;
     },
-    open: elmt => {
-        let isGallery = true,
-            dataImagebox = elmt.dataset.imagebox;
 
-        if (dataImagebox === 'image' || dataImagebox === '') isGallery = false;
+    open: elmt => {
+        let isGallery = true;
+        let dataImagebox = elmt.dataset.imagebox;
+
+        if (dataImagebox === 'image' || dataImagebox === '') {
+            isGallery = false;
+        }
 
         // some letiables
         let imageSrc = null;
@@ -168,16 +189,16 @@ const imagebox = {
 
             // create control for gallery
             galleryControl = `<div class="ib-control">
-					<div class="ib-control-left" ${prevDisabled}></div>
-					<div class="ib-control-right" ${nextDisabled}></div>
-				</div>`;
+                    <div class="ib-control-left" ${prevDisabled}></div>
+                    <div class="ib-control-right" ${nextDisabled}></div>
+                </div>`;
 
             // create info eg. '2/7' for gallery
             galleryInfo = `<div class="ib-indexes">
-					<span class="ib-current-index">${
+                    <span class="ib-current-index">${
                         dataImageboxImageIndex + 1
                     }</span> / <span class="ib-last-index">${imgGalleryLength}</span>
-				</div>`;
+                </div>`;
 
             // create next image placeholder
             galleryPlaceholderImage =
@@ -186,19 +207,19 @@ const imagebox = {
 
         // fill the imagebox element
         imgbox.innerHTML = `<div class="ib-loading"></div>
-			<div class="ib-content">
-				<div class="ib-topbar">${galleryInfo}
-					<div class="ib-buttons">
-						<div class="ib-close ib-button"></div>
-					</div>
-				</div>
-				${galleryControl}
-				<div class="ib-image-wrapper">
-					<img src="${imageSrc}" class="ib-image ib-image-current">
-					${galleryPlaceholderImage}
-				</div>
-				<div class="ib-caption"></div>
-			</div>`;
+            <div class="ib-content">
+                <div class="ib-topbar">${galleryInfo}
+                    <div class="ib-buttons">
+                        <div class="ib-close ib-button"></div>
+                    </div>
+                </div>
+                ${galleryControl}
+                <div class="ib-image-wrapper">
+                    <img src="${imageSrc}" class="ib-image ib-image-current">
+                    ${galleryPlaceholderImage}
+                </div>
+                <div class="ib-caption"></div>
+            </div>`;
 
         if (isGallery) {
             imgbox
@@ -258,6 +279,7 @@ const imagebox = {
             isGallery
         );
     },
+
     close: () => {
         // remove imagebox class from the body + hide imagebox
         document.body.classList.remove('imagebox');
@@ -267,19 +289,20 @@ const imagebox = {
         // only fade the imagebox out
         imagebox.fade.out(imgbox);
     },
+
     change: (imageIndex, galleryIndex, direction) => {
-        let imgboxLoading = document.querySelector('#imagebox .ib-loading'),
-            imgGalleryLength = imagebox.galleries[galleryIndex].length,
-            nextElmt = document.querySelector(
-                `img[data-imagebox-image-index='${imageIndex}'][data-imagebox-gallery-index='${galleryIndex}']`
-            ),
-            controlLeft = document.querySelector('#imagebox .ib-control-left'),
-            controlRight = document.querySelector(
-                '#imagebox .ib-control-right'
-            ),
-            currentIndex = document.querySelector(
-                '#imagebox .ib-current-index'
-            );
+        let imgboxLoading = document.querySelector('#imagebox .ib-loading');
+        let imgGalleryLength = imagebox.galleries[galleryIndex].length;
+        let nextElmt = document.querySelector(
+            `img[data-imagebox-image-index='${imageIndex}'][data-imagebox-gallery-index='${galleryIndex}']`
+        );
+        let controlLeft = document.querySelector('#imagebox .ib-control-left');
+        let controlRight = document.querySelector(
+            '#imagebox .ib-control-right'
+        );
+        let currentIndex = document.querySelector(
+            '#imagebox .ib-current-index'
+        );
 
         // display the loading circle
         imgboxLoading.style.opacity = '1';
@@ -287,21 +310,26 @@ const imagebox = {
         // check if the control button has to be disabled
         // prev()
         if (direction == 'prev') {
-            if (imageIndex == 0) controlLeft.setAttribute('disabled', '');
+            if (imageIndex == 0) {
+                controlLeft.setAttribute('disabled', '');
+            }
+
             controlRight.removeAttribute('disabled');
         }
 
         // next()
         if (direction == 'next') {
-            if (imageIndex == imgGalleryLength - 1)
+            if (imageIndex == imgGalleryLength - 1) {
                 controlRight.setAttribute('disabled', '');
+            }
+
             controlLeft.removeAttribute('disabled');
         }
 
         currentIndex.innerText = imageIndex + 1;
 
-        let nextImg = document.querySelector('#imagebox .ib-image-next'),
-            currentImg = document.querySelector('#imagebox .ib-image-current');
+        let nextImg = document.querySelector('#imagebox .ib-image-next');
+        let currentImg = document.querySelector('#imagebox .ib-image-current');
 
         currentImg.classList.add('ibFadeOut');
 
@@ -319,15 +347,24 @@ const imagebox = {
             }, 600);
         };
     },
+
     prev: (imageIndex, galleryIndex) => {
-        if (imageIndex == 0) return;
+        if (imageIndex == 0) {
+            return;
+        }
+
         imageIndex = imageIndex <= 0 ? (imageIndex = 0) : imageIndex - 1;
 
         imagebox.change(imageIndex, galleryIndex, 'prev');
     },
+
     next: (imageIndex, galleryIndex) => {
         let imgGalleryLength = imagebox.galleries[galleryIndex].length - 1;
-        if (imageIndex == imgGalleryLength) return;
+
+        if (imageIndex == imgGalleryLength) {
+            return;
+        }
+
         imageIndex =
             imageIndex >= imgGalleryLength
                 ? (imageIndex = imgGalleryLength)
@@ -335,6 +372,7 @@ const imagebox = {
 
         imagebox.change(imageIndex, galleryIndex, 'next');
     },
+
     caption(elmt) {
         let dataCaption = elmt.getAttribute('data-imagebox-caption');
         let imageboxCaption = document.querySelector('#imagebox .ib-caption');
@@ -362,13 +400,14 @@ const imagebox = {
             imageboxCaption.style.display = 'none';
         }
     },
+
     swipe: (elmt, isGallery) => {
         if (!elmt) return;
         // swipe gesture (mobile)
         elmt.ontouchstart = event => {
             // console.log(event)
-            let startPointX = event.layerX,
-                startPointY = event.layerY;
+            let startPointX = event.layerX;
+            let startPointY = event.layerY;
 
             elmt.ontouchend = event => {
                 let endPointX = event.layerX,
@@ -383,57 +422,75 @@ const imagebox = {
                     if (
                         pointDifferenceY >= tenPercentHeight ||
                         pointDifferenceY <= -tenPercentHeight
-                    )
+                    ) {
                         imagebox.close();
+                    }
                 }
                 // gallery
                 if (isGallery) {
                     // change
                     if (imagebox.settings.swipeToChange) {
                         // next
-                        if (pointDifferenceX >= tenPercentWidth)
+                        if (pointDifferenceX >= tenPercentWidth) {
                             document
                                 .querySelector('#imagebox .ib-control-right')
                                 .click();
+                        }
+
                         // prev
-                        if (pointDifferenceX <= -tenPercentWidth)
+                        if (pointDifferenceX <= -tenPercentWidth) {
                             document
                                 .querySelector('#imagebox .ib-control-left')
                                 .click();
+                        }
                     }
                 }
             };
         };
     },
+
     fade: {
         duration: 0.1,
+
         out: (elmt, getRemoved = false, callback) => {
             elmt.style.opacity = 1;
+
             (function fade() {
                 let val = parseFloat(elmt.style.opacity);
+
                 if (!((val -= imagebox.fade.duration) < 0)) {
                     elmt.style.opacity = val;
                     requestAnimationFrame(fade);
                 } else {
-                    if (callback) callback();
-                    if (getRemoved)
+                    if (callback) {
+                        callback();
+                    }
+
+                    if (getRemoved) {
                         document
                             .querySelector('#imagebox .ib-image-wrapper')
                             .removeChild(elmt);
+                    }
+
                     elmt.style.display = 'none';
                 }
             })();
         },
+
         in: (elmt, callback) => {
             elmt.style.opacity = 0;
             elmt.style.display = 'block';
+
             (function fade() {
                 let val = parseFloat(elmt.style.opacity);
+
                 if (!((val += imagebox.fade.duration) > 1)) {
                     elmt.style.opacity = val;
                     requestAnimationFrame(fade);
                 } else {
-                    if (callback) callback();
+                    if (callback) {
+                        callback();
+                    }
                 }
             })();
         },
