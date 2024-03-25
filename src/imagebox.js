@@ -171,8 +171,8 @@ const imagebox = {
         let dataImageboxImageIndex = null;
         let dataImageboxGalleryIndex = null;
         let imgGalleryLength = null;
-        let prevDisabled = null;
-        let nextDisabled = null;
+        let prevDisabled = '';
+        let nextDisabled = '';
 
         if (isGallery) {
             dataImageboxImageIndex = parseInt(elmt.dataset.imageboxImageIndex);
