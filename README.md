@@ -20,8 +20,8 @@ ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/release
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.min.css">
 <script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.ie.min.js"></script>
 ```
-> Currently only version 1.2.0 available
-> Since 1.3.0 is the support dropped.
+> Currently only version 1.2.0 is available.
+> _Since 1.3.0 is the support dropped._
 
 ---
 
