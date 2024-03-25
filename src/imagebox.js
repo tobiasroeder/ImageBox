@@ -49,7 +49,10 @@ const imagebox = {
                             let controlLeft =
                                 document.querySelector('.ib-control-left');
 
-                            if (controlLeft) {
+                            if (
+                                controlLeft &&
+                                controlLeft.hasAttribute('disabled') === false
+                            ) {
                                 controlLeft.click();
                             }
                         }
@@ -60,7 +63,10 @@ const imagebox = {
                             let controlRight =
                                 document.querySelector('.ib-control-right');
 
-                            if (controlRight) {
+                            if (
+                                controlRight &&
+                                controlRight.hasAttribute('disabled') === false
+                            ) {
                                 controlRight.click();
                             }
                         }
@@ -291,6 +297,7 @@ const imagebox = {
     },
 
     change: (imageIndex, galleryIndex, direction) => {
+        console.info('change method executed');
         let imgboxLoading = document.querySelector('#imagebox .ib-loading');
         let imgGalleryLength = imagebox.galleries[galleryIndex].length;
         let nextElmt = document.querySelector(
@@ -353,7 +360,11 @@ const imagebox = {
             return;
         }
 
-        imageIndex = imageIndex <= 0 ? (imageIndex = 0) : imageIndex - 1;
+        if (imageIndex <= 0) {
+            imageIndex = 0;
+        } else {
+            imageIndex--;
+        }
 
         imagebox.change(imageIndex, galleryIndex, 'prev');
     },
@@ -365,10 +376,11 @@ const imagebox = {
             return;
         }
 
-        imageIndex =
-            imageIndex >= imgGalleryLength
-                ? (imageIndex = imgGalleryLength)
-                : imageIndex + 1;
+        if (imageIndex >= imgGalleryLength) {
+            imageIndex = imgGalleryLength;
+        } else {
+            imageIndex++;
+        }
 
         imagebox.change(imageIndex, galleryIndex, 'next');
     },
