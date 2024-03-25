@@ -1,5 +1,5 @@
 /*
-    ImageBox v1.3.1
+    ImageBox v1.3.2
     (c) Tobias Roeder
     tobiasroeder.github.io/imagebox/license
 */
@@ -27,7 +27,7 @@ const imagebox = {
         // display imagebox info
         if (this.settings.info) {
             console.log(
-                '%cImageBox v1.3.1\nhttps://tobiasroeder.github.io/imagebox',
+                '%cImageBox v1.3.2\nhttps://tobiasroeder.github.io/imagebox',
                 'color:#39c'
             );
         }
