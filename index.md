@@ -1,6 +1,6 @@
 ## Documentation
 
-ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.1)
+ImageBox latest version [1.3.2](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.2)
 
 ***
 
@@ -20,8 +20,8 @@ ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/release
 ### Include this files:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.1/dist/imagebox.min.css">
-<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.1/dist/imagebox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.2/dist/imagebox.min.css">
+<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.2/dist/imagebox.min.js"></script>
 ```
 ***
 
@@ -32,7 +32,7 @@ ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/release
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.min.css">
 <script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.ie.min.js"></script>
 ```
-> Currently only version 1.2.0 available
+> Currently only version 1.2.0 available. _Since 1.3.0 is the support dropped._
 
 ***
 
@@ -125,14 +125,15 @@ An live example can be found on CodePen. You can also play there with the ImageB
 
 Browser | Version | Known Issues
 --- | --- | ---
-Safari | 16.2 |
-Safari (iOS) | 16.3.1 |
-Chrome | 110.0.5481.178 |
-Opera | 96.0.4693.31 |
-Firefox | 110.0.1 |
-Microsoft Edge | 110.0.1587.63 |
+Safari | 17.3.1 |
+Safari (iOS) | 17.4.1 |
+Chrome | 123.0.6312.87 (arm64) |
+Opera | 109.0.5097.35 (arm64) |
+Firefox | 124.0.1 (64-Bit) |
+Microsoft Edge | 123.0.2420.65 (arm64) |
+Arc | 1.36.0 |
 
-> imagebox.css & imagebox.js (v1.3.1)
+> imagebox.css & imagebox.js (v1.3.2)
 
 ***
 
