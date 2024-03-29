@@ -1,5 +1,3 @@
-[![](https://data.jsdelivr.com/v1/package/gh/tobiasroeder/ImageBox/badge)](https://www.jsdelivr.com/package/gh/tobiasroeder/ImageBox)
-
 # ImageBox Documentation
 
 [![](https://img.shields.io/github/v/release/tobiasroeder/ImageBox?style=flat-square&label=Release)](https://github.com/tobiasroeder/ImageBox/releases/tag/1.3.2)
