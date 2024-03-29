@@ -2,7 +2,10 @@
 
 # ImageBox Documentation
 
-ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.1)
+[![](https://img.shields.io/github/v/release/tobiasroeder/ImageBox?style=flat-square&label=Release)](https://github.com/tobiasroeder/ImageBox/releases/tag/1.3.1)
+[![](https://img.shields.io/github/issues/tobiasroeder/ImageBox?style=flat-square&label=Issues)](https://github.com/tobiasroeder/ImageBox/issues)
+[![](https://img.shields.io/github/license/tobiasroeder/ImageBox?style=flat-square&label=License)](https://github.com/tobiasroeder/ImageBox/blob/master/LICENSE)
+[![](https://data.jsdelivr.com/v1/package/gh/tobiasroeder/ImageBox/badge)](https://www.jsdelivr.com/package/gh/tobiasroeder/ImageBox)
 
 ---
 
