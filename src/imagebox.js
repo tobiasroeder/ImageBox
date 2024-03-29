@@ -442,15 +442,30 @@ const imagebox = {
                 if (isGallery) {
                     // change
                     if (imagebox.settings.swipeToChange) {
+                        let controlLeft = document.querySelector(
+                            '#imagebox .ib-control-left'
+                        );
+                        let controlRight = document.querySelector(
+                            '#imagebox .ib-control-right'
+                        );
+
                         // next
-                        if (pointDifferenceX >= tenPercentWidth) {
+                        if (
+                            pointDifferenceX >= tenPercentWidth &&
+                            controlRight &&
+                            controlRight.hasAttribute('disabled') === false
+                        ) {
                             document
                                 .querySelector('#imagebox .ib-control-right')
                                 .click();
                         }
 
                         // prev
-                        if (pointDifferenceX <= -tenPercentWidth) {
+                        if (
+                            pointDifferenceX <= -tenPercentWidth &&
+                            controlLeft &&
+                            controlLeft.hasAttribute('disabled') === false
+                        ) {
                             document
                                 .querySelector('#imagebox .ib-control-left')
                                 .click();
