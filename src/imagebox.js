@@ -1,392 +1,530 @@
 /*
-	ImageBox v1.3.1
-	(c) Tobias Roeder
-	tobiasroeder.github.io/imagebox/license
+    ImageBox v1.3.2
+    (c) Tobias Roeder
+    tobiasroeder.github.io/imagebox/license
 */
 
 // ImageBox
 const imagebox = {
-	init(autoload = '') {
-		// Disable auto initialization
-		if (!this.settings.autoInit && autoload === 'autoload') return;
+    galleryNames: [],
+    galleries: [],
+    settings: {
+        info: false,
+        swipeToChange: true,
+        swipeToClose: true,
+        keyControls: true,
+        closeEverywhere: true,
+        htmlCaption: false,
+        autoInit: true,
+    },
 
-		// display imagebox info
-		if (this.settings.info) console.log('%cImageBox v1.3.1\nhttps://tobiasroeder.github.io/imagebox', 'color:#39c');
+    init(autoload = '') {
+        // Disable auto initialization
+        if (!this.settings.autoInit && autoload === 'autoload') {
+            return;
+        }
 
-		// imagebox keycontrols
-		if (this.settings.keyControls) {
-			window.onkeyup = event => {
-				if (document.body.classList.contains('imagebox')) {
-					switch (event.code) {
-						case 'Escape':
-							this.close();
-							break;
+        // display imagebox info
+        if (this.settings.info) {
+            console.log(
+                '%cImageBox v1.3.2\nhttps://tobiasroeder.github.io/imagebox',
+                'color:#39c'
+            );
+        }
 
-						case 'ArrowLeft':
-							{
-								let controlLeft = document.querySelector('.ib-control-left');
-								if (controlLeft) controlLeft.click();
-							}
-							break;
+        // imagebox keycontrols
+        if (this.settings.keyControls) {
+            window.onkeyup = event => {
+                if (!document.body.classList.contains('imagebox')) {
+                    return;
+                }
 
-						case 'ArrowRight':
-							{
-								let controlRight = document.querySelector('.ib-control-right');
-								if (controlRight) controlRight.click();
-							}
-							break;
-					}
-				}
-			};
-		}
+                switch (event.code) {
+                    case 'Escape':
+                        this.close();
+                        break;
 
-		this.finder();
-	},
-	galleryNames: [],
-	galleries: [],
-	finder() {
-		let ibElmts = document.querySelectorAll('img[data-imagebox]');
+                    case 'ArrowLeft':
+                        {
+                            let controlLeft =
+                                document.querySelector('.ib-control-left');
 
-		if (this.galleries.length > 0) this.galleries = [];
+                            if (
+                                controlLeft &&
+                                controlLeft.hasAttribute('disabled') === false
+                            ) {
+                                controlLeft.click();
+                            }
+                        }
+                        break;
 
-		ibElmts.forEach(ibElmt => {
-			let dataImagebox = ibElmt.dataset.imagebox;
+                    case 'ArrowRight':
+                        {
+                            let controlRight =
+                                document.querySelector('.ib-control-right');
 
-			ibElmt.addEventListener('click', function (event) {
-				event.preventDefault();
-				event.stopPropagation();
+                            if (
+                                controlRight &&
+                                controlRight.hasAttribute('disabled') === false
+                            ) {
+                                controlRight.click();
+                            }
+                        }
+                        break;
+                }
+            };
+        }
 
-				imagebox.open(this);
-			});
+        this.finder();
+    },
 
-			if (dataImagebox === '') return
-			if (!imagebox.galleryNames.includes(dataImagebox)) imagebox.galleryNames.push(dataImagebox);
-		});
+    finder() {
+        let ibElmts = document.querySelectorAll('img[data-imagebox]');
 
-		imagebox.galleryNames.forEach(galleryName => {
-			let elmts = document.querySelectorAll(`[data-imagebox="${galleryName}"]`);
+        if (this.galleries.length > 0) this.galleries = [];
 
-			imagebox.galleries.push(elmts);
-		});
+        ibElmts.forEach(ibElmt => {
+            let dataImagebox = ibElmt.dataset.imagebox;
 
-		imagebox.galleries.forEach((gallery, galleryIndex) => {
-			gallery.forEach((image, imageIndex) => {
-				image.setAttribute('data-imagebox-image-index', imageIndex);
-				image.setAttribute('data-imagebox-gallery-index', galleryIndex);
-			});
-		});
-	},
-	settings: {
-		info: false,
-		swipeToChange: true,
-		swipeToClose: true,
-		keyControls: true,
-		closeEverywhere: true,
-		htmlCaption: false,
-		autoInit: true,
-	},
-	options({
-		info = false,
-		swipeToChange = true,
-		swipeToClose = true,
-		keyControls = true,
-		closeEverywhere = true,
-		htmlCaption = false,
-		autoInit = true,
-	}) {
-		// set settings
-		this.settings.info = info;
-		this.settings.swipeToChange = swipeToChange;
-		this.settings.swipeToClose = swipeToClose;
-		this.settings.keyControls = keyControls;
-		this.settings.closeEverywhere = closeEverywhere;
-		this.settings.htmlCaption = htmlCaption;
-		this.settings.autoInit = autoInit;
-	},
-	open: (elmt) => {
-		let isGallery = true,
-			dataImagebox = elmt.dataset.imagebox;
+            ibElmt.addEventListener('click', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
 
-		if (dataImagebox === 'image' || dataImagebox === '') isGallery = false;
+                imagebox.open(this);
+            });
 
-		// some letiables
-		let imageSrc = null;
+            if (dataImagebox === '') {
+                return;
+            }
 
-		// add imagebox class to the body
-		document.body.classList.add('imagebox');
+            if (!imagebox.galleryNames.includes(dataImagebox)) {
+                imagebox.galleryNames.push(dataImagebox);
+            }
+        });
 
-		// create imagebox block + id if the element doesn't exist yet
-		if (document.querySelector('#imagebox') == null) {
-			let ib = document.createElement('div');
-			ib.setAttribute('id', 'imagebox');
-			ib.setAttribute('class', 'ib-remove');
-			document.body.appendChild(ib);
-		}
+        imagebox.galleryNames.forEach(galleryName => {
+            let elmts = document.querySelectorAll(
+                `[data-imagebox="${galleryName}"]`
+            );
 
-		// define the src
-		imageSrc = elmt.dataset.imageboxSrc ?? elmt.src;
+            imagebox.galleries.push(elmts);
+        });
 
-		let imgbox = document.querySelector('#imagebox');
+        imagebox.galleries.forEach((gallery, galleryIndex) => {
+            gallery.forEach((image, imageIndex) => {
+                image.setAttribute('data-imagebox-image-index', imageIndex);
+                image.setAttribute('data-imagebox-gallery-index', galleryIndex);
+            });
+        });
+    },
 
-		// gallery
-		let galleryControl = null;
-		let galleryInfo = null;
-		let galleryPlaceholderImage = null;
-		let dataImageboxImageIndex = null;
-		let dataImageboxGalleryIndex = null;
-		let imgGalleryLength = null;
-		let prevDisabled = null;
-		let nextDisabled = null;
+    options({
+        info = false,
+        swipeToChange = true,
+        swipeToClose = true,
+        keyControls = true,
+        closeEverywhere = true,
+        htmlCaption = false,
+        autoInit = true,
+    }) {
+        // set settings
+        this.settings.info = info;
+        this.settings.swipeToChange = swipeToChange;
+        this.settings.swipeToClose = swipeToClose;
+        this.settings.keyControls = keyControls;
+        this.settings.closeEverywhere = closeEverywhere;
+        this.settings.htmlCaption = htmlCaption;
+        this.settings.autoInit = autoInit;
+    },
 
-		if (isGallery) {
-			dataImageboxImageIndex = parseInt(elmt.dataset.imageboxImageIndex);
-			dataImageboxGalleryIndex = parseInt(elmt.dataset.imageboxGalleryIndex);
-			imgGalleryLength = imagebox.galleries[dataImageboxGalleryIndex].length;
+    open: elmt => {
+        let isGallery = true;
+        let dataImagebox = elmt.dataset.imagebox;
 
-			// disable button
-			// imagebox index == the first one
-			if (dataImageboxImageIndex == 0) {
-				prevDisabled = 'disabled';
-			}
+        if (dataImagebox === 'image' || dataImagebox === '') {
+            isGallery = false;
+        }
 
-			// imagebox index == the last one
-			if (dataImageboxImageIndex == imgGalleryLength - 1) {
-				nextDisabled = 'disabled';
-			}
+        // some letiables
+        let imageSrc = null;
 
-			// create control for gallery
-			galleryControl = `<div class="ib-control">
-					<div class="ib-control-left" ${prevDisabled}></div>
-					<div class="ib-control-right" ${nextDisabled}></div>
-				</div>`;
+        // add imagebox class to the body
+        document.body.classList.add('imagebox');
 
-			// create info eg. '2/7' for gallery
-			galleryInfo = `<div class="ib-indexes">
-					<span class="ib-current-index">${dataImageboxImageIndex + 1}</span> / <span class="ib-last-index">${imgGalleryLength}</span>
-				</div>`;
+        // create imagebox block + id if the element doesn't exist yet
+        if (document.querySelector('#imagebox') == null) {
+            let ib = document.createElement('div');
+            ib.setAttribute('id', 'imagebox');
+            ib.setAttribute('class', 'ib-remove');
+            document.body.appendChild(ib);
+        }
 
-			// create next image placeholder
-			galleryPlaceholderImage = '<img src="" class="ib-image ib-image-next ib-hidden">';
-		}
+        // define the src
+        imageSrc = elmt.dataset.imageboxSrc ?? elmt.src;
 
-		// fill the imagebox element
-		imgbox.innerHTML = `<div class="ib-loading"></div>
-			<div class="ib-content">
-				<div class="ib-topbar">${galleryInfo}
-					<div class="ib-buttons">
-						<div class="ib-close ib-button"></div>
-					</div>
-				</div>
-				${galleryControl}
-				<div class="ib-image-wrapper">
-					<img src="${imageSrc}" class="ib-image ib-image-current">
-					${galleryPlaceholderImage}
-				</div>
-				<div class="ib-caption"></div>
-			</div>`;
+        let imgbox = document.querySelector('#imagebox');
 
-		if (isGallery) {
-			imgbox.querySelector('.ib-control-left').addEventListener('click', event => {
-				event.preventDefault();
-				event.stopPropagation();
+        // gallery
+        let galleryControl = null;
+        let galleryInfo = null;
+        let galleryPlaceholderImage = null;
+        let dataImageboxImageIndex = null;
+        let dataImageboxGalleryIndex = null;
+        let imgGalleryLength = null;
+        let prevDisabled = '';
+        let nextDisabled = '';
 
-				imagebox.prev(dataImageboxImageIndex--, dataImageboxGalleryIndex);
-			});
+        if (isGallery) {
+            dataImageboxImageIndex = parseInt(elmt.dataset.imageboxImageIndex);
+            dataImageboxGalleryIndex = parseInt(
+                elmt.dataset.imageboxGalleryIndex
+            );
+            imgGalleryLength =
+                imagebox.galleries[dataImageboxGalleryIndex].length;
 
-			imgbox.querySelector('.ib-control-right').addEventListener('click', event => {
-				event.preventDefault();
-				event.stopPropagation();
+            // disable button
+            // imagebox index == the first one
+            if (dataImageboxImageIndex == 0) {
+                prevDisabled = 'disabled';
+            }
 
-				imagebox.next(dataImageboxImageIndex++, dataImageboxGalleryIndex);
-			});
-		} else {
-			if (imagebox.settings.closeEverywhere) {
-				imgbox.querySelector('.ib-content').addEventListener('click', () => {
-					imagebox.close();
-				});
-			}
-		}
+            // imagebox index == the last one
+            if (dataImageboxImageIndex == imgGalleryLength - 1) {
+                nextDisabled = 'disabled';
+            }
 
-		imgbox.querySelector('.ib-close').addEventListener('click', () => {
-			imagebox.close();
-		});
+            // create control for gallery
+            galleryControl = `<div class="ib-control">
+                    <div class="ib-control-left" ${prevDisabled}></div>
+                    <div class="ib-control-right" ${nextDisabled}></div>
+                </div>`;
 
-		// data imagebox caption
-		imagebox.caption(elmt);
+            // create info eg. '2/7' for gallery
+            galleryInfo = `<div class="ib-indexes">
+                    <span class="ib-current-index">${
+                        dataImageboxImageIndex + 1
+                    }</span> / <span class="ib-last-index">${imgGalleryLength}</span>
+                </div>`;
 
-		// display imagebox
-		imagebox.fade.in(imgbox);
+            // create next image placeholder
+            galleryPlaceholderImage =
+                '<img src="" class="ib-image ib-image-next ib-hidden">';
+        }
 
-		// hide loading circle if image is loaded
-		document.querySelector('#imagebox .ib-image').onload = () => {
-			document.querySelector('#imagebox .ib-loading').style.opacity = '0';
-			document.querySelector('#imagebox .ib-image-wrapper').style.opacity = '1';
-		};
+        // fill the imagebox element
+        imgbox.innerHTML = `<div class="ib-loading"></div>
+            <div class="ib-content">
+                <div class="ib-topbar">${galleryInfo}
+                    <div class="ib-buttons">
+                        <div class="ib-close ib-button"></div>
+                    </div>
+                </div>
+                ${galleryControl}
+                <div class="ib-image-wrapper">
+                    <img src="${imageSrc}" class="ib-image ib-image-current">
+                    ${galleryPlaceholderImage}
+                </div>
+                <div class="ib-caption"></div>
+            </div>`;
 
-		// activate swipe control
-		imagebox.swipe(document.querySelector('#imagebox .ib-content'), isGallery);
-	},
-	close: () => {
-		// remove imagebox class from the body + hide imagebox
-		document.body.classList.remove('imagebox');
-		let imgbox = document.querySelector('#imagebox');
-		imgbox.classList.remove('ib-remove');
+        if (isGallery) {
+            imgbox
+                .querySelector('.ib-control-left')
+                .addEventListener('click', event => {
+                    event.preventDefault();
+                    event.stopPropagation();
 
-		// only fade the imagebox out
-		imagebox.fade.out(imgbox);
-	},
-	change: (imageIndex, galleryIndex, direction) => {
-		let imgboxLoading = document.querySelector('#imagebox .ib-loading'),
-			imgGalleryLength = imagebox.galleries[galleryIndex].length,
-			nextElmt = document.querySelector(`img[data-imagebox-image-index='${imageIndex}'][data-imagebox-gallery-index='${galleryIndex}']`),
-			controlLeft = document.querySelector('#imagebox .ib-control-left'),
-			controlRight = document.querySelector('#imagebox .ib-control-right'),
-			currentIndex = document.querySelector('#imagebox .ib-current-index');
+                    imagebox.prev(
+                        dataImageboxImageIndex--,
+                        dataImageboxGalleryIndex
+                    );
+                });
 
-		// display the loading circle
-		imgboxLoading.style.opacity = '1';
+            imgbox
+                .querySelector('.ib-control-right')
+                .addEventListener('click', event => {
+                    event.preventDefault();
+                    event.stopPropagation();
 
-		// check if the control button has to be disabled
-		// prev()
-		if (direction == 'prev') {
-			if (imageIndex == 0) controlLeft.setAttribute('disabled', '');
-			controlRight.removeAttribute('disabled');
-		}
+                    imagebox.next(
+                        dataImageboxImageIndex++,
+                        dataImageboxGalleryIndex
+                    );
+                });
+        } else {
+            if (imagebox.settings.closeEverywhere) {
+                imgbox
+                    .querySelector('.ib-content')
+                    .addEventListener('click', () => {
+                        imagebox.close();
+                    });
+            }
+        }
 
-		// next()
-		if (direction == 'next') {
-			if (imageIndex == (imgGalleryLength - 1)) controlRight.setAttribute('disabled', '');
-			controlLeft.removeAttribute('disabled');
-		}
+        imgbox.querySelector('.ib-close').addEventListener('click', () => {
+            imagebox.close();
+        });
 
-		currentIndex.innerText = (imageIndex + 1);
+        // data imagebox caption
+        imagebox.caption(elmt);
 
-		let nextImg = document.querySelector('#imagebox .ib-image-next'),
-			currentImg = document.querySelector('#imagebox .ib-image-current');
+        // display imagebox
+        imagebox.fade.in(imgbox);
 
-		currentImg.classList.add('ibFadeOut');
+        // hide loading circle if image is loaded
+        document.querySelector('#imagebox .ib-image').onload = () => {
+            document.querySelector('#imagebox .ib-loading').style.opacity = '0';
+            document.querySelector(
+                '#imagebox .ib-image-wrapper'
+            ).style.opacity = '1';
+        };
 
-		nextImg.src = nextElmt.dataset.imageboxSrc ?? nextElmt.src;
-		imagebox.caption(nextElmt);
+        // activate swipe control
+        imagebox.swipe(
+            document.querySelector('#imagebox .ib-content'),
+            isGallery
+        );
+    },
 
-		nextImg.onload = () => {
-			nextImg.classList.add('ibFadeIn');
-			imgboxLoading.style.opacity = 0;
+    close: () => {
+        // remove imagebox class from the body + hide imagebox
+        document.body.classList.remove('imagebox');
+        let imgbox = document.querySelector('#imagebox');
+        imgbox.classList.remove('ib-remove');
 
-			setTimeout(() => {
-				currentImg.className = 'ib-image ib-hidden ib-image-next';
-				currentImg.src = '';
-				nextImg.className = 'ib-image ib-image-current';
-			}, 600);
-		}
-	},
-	prev: (imageIndex, galleryIndex) => {
-		if (imageIndex == 0) return;
-		imageIndex = (imageIndex <= 0 ? imageIndex = 0 : imageIndex - 1);
+        // only fade the imagebox out
+        imagebox.fade.out(imgbox);
+    },
 
-		imagebox.change(imageIndex, galleryIndex, 'prev');
-	},
-	next: (imageIndex, galleryIndex) => {
-		let imgGalleryLength = imagebox.galleries[galleryIndex].length - 1;
-		if (imageIndex == imgGalleryLength) return;
-		imageIndex = (imageIndex >= imgGalleryLength ? imageIndex = imgGalleryLength : imageIndex + 1);
+    change: (imageIndex, galleryIndex, direction) => {
+        console.info('change method executed');
+        let imgboxLoading = document.querySelector('#imagebox .ib-loading');
+        let imgGalleryLength = imagebox.galleries[galleryIndex].length;
+        let nextElmt = document.querySelector(
+            `img[data-imagebox-image-index='${imageIndex}'][data-imagebox-gallery-index='${galleryIndex}']`
+        );
+        let controlLeft = document.querySelector('#imagebox .ib-control-left');
+        let controlRight = document.querySelector(
+            '#imagebox .ib-control-right'
+        );
+        let currentIndex = document.querySelector(
+            '#imagebox .ib-current-index'
+        );
 
-		imagebox.change(imageIndex, galleryIndex, 'next');
-	},
-	caption(elmt) {
-		let dataCaption = elmt.getAttribute('data-imagebox-caption');
-		let imageboxCaption = document.querySelector('#imagebox .ib-caption');
+        // display the loading circle
+        imgboxLoading.style.opacity = '1';
 
-		if (this.settings.htmlCaption) {
-			imageboxCaption.innerHTML = dataCaption;
-		} else {
-			imageboxCaption.textContent = dataCaption;
-		}
+        // check if the control button has to be disabled
+        // prev()
+        if (direction == 'prev') {
+            if (imageIndex == 0) {
+                controlLeft.setAttribute('disabled', '');
+            }
 
-		// a little feature for the caption
-		// if {loc} is there, add the location class
-		if (dataCaption) {
-			if (dataCaption.indexOf('{loc}') > -1) {
-				imageboxCaption.classList.add('location');
-				dataCaption = dataCaption.replace(/{loc}/, '');
-				imageboxCaption.textContent = dataCaption;
-			} else {
-				imageboxCaption.classList.remove('location');
-			}
+            controlRight.removeAttribute('disabled');
+        }
 
-			// display the background of the description
-			imageboxCaption.style.display = 'block';
-		} else {
-			imageboxCaption.style.display = 'none';
-		}
-	},
-	swipe: (elmt, isGallery) => {
-		if (!elmt) return;
-		// swipe gesture (mobile)
-		elmt.ontouchstart = event => {
-			// console.log(event)
-			let startPointX = event.layerX,
-				startPointY = event.layerY;
+        // next()
+        if (direction == 'next') {
+            if (imageIndex == imgGalleryLength - 1) {
+                controlRight.setAttribute('disabled', '');
+            }
 
-			elmt.ontouchend = event => {
-				let endPointX = event.layerX,
-					pointDifferenceX = startPointX - endPointX,
-					endPointY = event.layerY,
-					pointDifferenceY = startPointY - endPointY,
-					tenPercentWidth = window.innerWidth / 10,
-					tenPercentHeight = window.innerHeight / 10;
+            controlLeft.removeAttribute('disabled');
+        }
 
-				// close
-				if (imagebox.settings.swipeToClose) {
-					if (pointDifferenceY >= tenPercentHeight || pointDifferenceY <= (-tenPercentHeight)) imagebox.close()
-				}
-				// gallery
-				if (isGallery) {
-					// change
-					if (imagebox.settings.swipeToChange) {
-						// next
-						if (pointDifferenceX >= tenPercentWidth) document.querySelector('#imagebox .ib-control-right').click();
-						// prev
-						if (pointDifferenceX <= (-tenPercentWidth)) document.querySelector('#imagebox .ib-control-left').click();
-					}
-				}
-			}
-		}
-	},
-	fade: {
-		duration: .1,
-		out: (elmt, getRemoved = false, callback) => {
-			elmt.style.opacity = 1;
-			(function fade() {
-				let val = parseFloat(elmt.style.opacity);
-				if (!((val -= imagebox.fade.duration) < 0)) {
-					elmt.style.opacity = val;
-					requestAnimationFrame(fade);
-				} else {
-					if (callback) callback();
-					if (getRemoved) document.querySelector('#imagebox .ib-image-wrapper').removeChild(elmt);
-					elmt.style.display = 'none';
-				}
-			})();
-		},
-		in: (elmt, callback) => {
-			elmt.style.opacity = 0;
-			elmt.style.display = 'block';
-			(function fade() {
-				let val = parseFloat(elmt.style.opacity);
-				if (!((val += imagebox.fade.duration) > 1)) {
-					elmt.style.opacity = val;
-					requestAnimationFrame(fade);
-				} else {
-					if (callback) callback();
-				}
-			})();
-		}
-	}
-}
+        currentIndex.innerText = imageIndex + 1;
 
+        let nextImg = document.querySelector('#imagebox .ib-image-next');
+        let currentImg = document.querySelector('#imagebox .ib-image-current');
+
+        currentImg.classList.add('ibFadeOut');
+
+        nextImg.src = nextElmt.dataset.imageboxSrc ?? nextElmt.src;
+        imagebox.caption(nextElmt);
+
+        nextImg.onload = () => {
+            nextImg.classList.add('ibFadeIn');
+            imgboxLoading.style.opacity = 0;
+
+            setTimeout(() => {
+                currentImg.className = 'ib-image ib-hidden ib-image-next';
+                currentImg.src = '';
+                nextImg.className = 'ib-image ib-image-current';
+            }, 600);
+        };
+    },
+
+    prev: (imageIndex, galleryIndex) => {
+        if (imageIndex == 0) {
+            return;
+        }
+
+        if (imageIndex <= 0) {
+            imageIndex = 0;
+        } else {
+            imageIndex--;
+        }
+
+        imagebox.change(imageIndex, galleryIndex, 'prev');
+    },
+
+    next: (imageIndex, galleryIndex) => {
+        let imgGalleryLength = imagebox.galleries[galleryIndex].length - 1;
+
+        if (imageIndex == imgGalleryLength) {
+            return;
+        }
+
+        if (imageIndex >= imgGalleryLength) {
+            imageIndex = imgGalleryLength;
+        } else {
+            imageIndex++;
+        }
+
+        imagebox.change(imageIndex, galleryIndex, 'next');
+    },
+
+    caption(elmt) {
+        let dataCaption = elmt.getAttribute('data-imagebox-caption');
+        let imageboxCaption = document.querySelector('#imagebox .ib-caption');
+
+        if (this.settings.htmlCaption) {
+            imageboxCaption.innerHTML = dataCaption;
+        } else {
+            imageboxCaption.textContent = dataCaption;
+        }
+
+        // a little feature for the caption
+        // if {loc} is there, add the location class
+        if (dataCaption) {
+            if (dataCaption.indexOf('{loc}') > -1) {
+                imageboxCaption.classList.add('location');
+                dataCaption = dataCaption.replace(/{loc}/, '');
+                imageboxCaption.textContent = dataCaption;
+            } else {
+                imageboxCaption.classList.remove('location');
+            }
+
+            // display the background of the description
+            imageboxCaption.style.display = 'block';
+        } else {
+            imageboxCaption.style.display = 'none';
+        }
+    },
+
+    swipe: (elmt, isGallery) => {
+        if (!elmt) return;
+        // swipe gesture (mobile)
+        elmt.ontouchstart = event => {
+            // console.log(event)
+            let startPointX = event.layerX;
+            let startPointY = event.layerY;
+
+            elmt.ontouchend = event => {
+                let endPointX = event.layerX,
+                    pointDifferenceX = startPointX - endPointX,
+                    endPointY = event.layerY,
+                    pointDifferenceY = startPointY - endPointY,
+                    tenPercentWidth = window.innerWidth / 10,
+                    tenPercentHeight = window.innerHeight / 10;
+
+                // close
+                if (imagebox.settings.swipeToClose) {
+                    if (
+                        pointDifferenceY >= tenPercentHeight ||
+                        pointDifferenceY <= -tenPercentHeight
+                    ) {
+                        imagebox.close();
+                    }
+                }
+                // gallery
+                if (isGallery) {
+                    // change
+                    if (imagebox.settings.swipeToChange) {
+                        let controlLeft = document.querySelector(
+                            '#imagebox .ib-control-left'
+                        );
+                        let controlRight = document.querySelector(
+                            '#imagebox .ib-control-right'
+                        );
+
+                        // next
+                        if (
+                            pointDifferenceX >= tenPercentWidth &&
+                            controlRight &&
+                            controlRight.hasAttribute('disabled') === false
+                        ) {
+                            document
+                                .querySelector('#imagebox .ib-control-right')
+                                .click();
+                        }
+
+                        // prev
+                        if (
+                            pointDifferenceX <= -tenPercentWidth &&
+                            controlLeft &&
+                            controlLeft.hasAttribute('disabled') === false
+                        ) {
+                            document
+                                .querySelector('#imagebox .ib-control-left')
+                                .click();
+                        }
+                    }
+                }
+            };
+        };
+    },
+
+    fade: {
+        duration: 0.1,
+
+        out: (elmt, getRemoved = false, callback) => {
+            elmt.style.opacity = 1;
+
+            (function fade() {
+                let val = parseFloat(elmt.style.opacity);
+
+                if (!((val -= imagebox.fade.duration) < 0)) {
+                    elmt.style.opacity = val;
+                    requestAnimationFrame(fade);
+                } else {
+                    if (callback) {
+                        callback();
+                    }
+
+                    if (getRemoved) {
+                        document
+                            .querySelector('#imagebox .ib-image-wrapper')
+                            .removeChild(elmt);
+                    }
+
+                    elmt.style.display = 'none';
+                }
+            })();
+        },
+
+        in: (elmt, callback) => {
+            elmt.style.opacity = 0;
+            elmt.style.display = 'block';
+
+            (function fade() {
+                let val = parseFloat(elmt.style.opacity);
+
+                if (!((val += imagebox.fade.duration) > 1)) {
+                    elmt.style.opacity = val;
+                    requestAnimationFrame(fade);
+                } else {
+                    if (callback) {
+                        callback();
+                    }
+                }
+            })();
+        },
+    },
+};
 
 // initialize imagebox
-window.addEventListener('load', function() {
-	imagebox.init('autoload');
+window.addEventListener('load', function () {
+    imagebox.init('autoload');
 });

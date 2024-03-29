@@ -1,65 +1,330 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="https://tobiasroeder.github.io/imagebox/assets/icons/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="https://tobiasroeder.github.io/imagebox/assets/icons/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="https://tobiasroeder.github.io/imagebox/assets/icons/favicon-16x16.png"
+        />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="https://tobiasroeder.github.io/imagebox/assets/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://tobiasroeder.github.io/imagebox/assets/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://tobiasroeder.github.io/imagebox/assets/icons/favicon-16x16.png">
+        <title>ImageBox v1.3.1</title>
 
-    <title>ImageBox v1.3.1</title>
+        <style>
+            /* https://github.com/markdowncss/modest */
+            code,
+            .pre,
+            pre {
+                font-family: Menlo, Monaco, 'Courier New', monospace;
+            }
+            .pre,
+            pre {
+                padding: 0.5rem;
+                line-height: 1.75;
+            }
+            a,
+            a:visited {
+                color: #3498db;
+            }
+            a:active,
+            a:focus,
+            a:hover {
+                color: #2980b9;
+            }
+            .modest-no-decoration {
+                text-decoration: none;
+            }
+            html {
+                font-size: 12px;
+            }
+            @media screen and (min-width: 32rem) and (max-width: 48rem) {
+                html {
+                    font-size: 15px;
+                }
+            }
+            @media screen and (min-width: 48rem) {
+                html {
+                    font-size: 16px;
+                }
+            }
+            body {
+                line-height: 1.85;
+            }
+            .modest-p,
+            p {
+                font-size: 1rem;
+                margin-bottom: 1.3rem;
+            }
+            .modest-h1,
+            .modest-h2,
+            .modest-h3,
+            .modest-h4,
+            h1,
+            h2,
+            h3,
+            h4 {
+                margin: 1.414rem 0 0.5rem;
+                font-weight: inherit;
+                line-height: 1.42;
+            }
+            .modest-h1,
+            h1 {
+                margin-top: 0;
+                font-size: 3.998rem;
+            }
+            .modest-h2,
+            h2 {
+                font-size: 2.827rem;
+            }
+            .modest-h3,
+            h3 {
+                font-size: 1.999rem;
+            }
+            .modest-h4,
+            h4 {
+                font-size: 1.414rem;
+            }
+            .modest-h5,
+            h5 {
+                font-size: 1.121rem;
+            }
+            .modest-h6,
+            h6 {
+                font-size: 0.88rem;
+            }
+            .modest-small,
+            small {
+                font-size: 0.707em;
+            }
+            canvas,
+            iframe,
+            img,
+            select,
+            svg,
+            textarea,
+            video {
+                max-width: 100%;
+            }
+            @import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700);
+            @import url(http://fonts.googleapis.com/css?family=Arimo:700,700italic);
+            html {
+                font-size: 18px;
+                max-width: 100%;
+            }
+            body {
+                color: #444;
+                font-family: 'Open Sans Condensed', sans-serif;
+                font-weight: 300;
+                margin: 0 auto;
+                max-width: 48rem;
+                line-height: 1.45;
+                padding: 0.25rem;
+            }
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                font-family: Arimo, Helvetica, sans-serif;
+            }
+            h1,
+            h2,
+            h3 {
+                border-bottom: 2px solid #fafafa;
+                margin-bottom: 1.15rem;
+                padding-bottom: 0.5rem;
+                text-align: center;
+            }
+            blockquote {
+                border-left: 8px solid #fafafa;
+                padding: 1rem;
+            }
+            code,
+            .pre,
+            pre {
+                background-color: #fafafa;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>ImageBox</h1>
 
-    <style>
-        /* https://github.com/markdowncss/modest */
-        code,pre{font-family:Menlo, Monaco, "Courier New", monospace}pre{padding:0.5rem;line-height:1.25;overflow-x:scroll}a,a:visited{color:#3498db}a:active,a:focus,a:hover{color:#2980b9}.modest-no-decoration{text-decoration:none}html{font-size:12px}@media screen and (min-width: 32rem) and (max-width: 48rem){html{font-size:15px}}@media screen and (min-width: 48rem){html{font-size:16px}}body{line-height:1.85}.modest-p,p{font-size:1rem;margin-bottom:1.3rem}.modest-h1,.modest-h2,.modest-h3,.modest-h4,h1,h2,h3,h4{margin:1.414rem 0 0.5rem;font-weight:inherit;line-height:1.42}.modest-h1,h1{margin-top:0;font-size:3.998rem}.modest-h2,h2{font-size:2.827rem}.modest-h3,h3{font-size:1.999rem}.modest-h4,h4{font-size:1.414rem}.modest-h5,h5{font-size:1.121rem}.modest-h6,h6{font-size:0.88rem}.modest-small,small{font-size:0.707em}canvas,iframe,img,select,svg,textarea,video{max-width:100%}@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700);@import url(http://fonts.googleapis.com/css?family=Arimo:700,700italic);html{font-size:18px;max-width:100%}body{color:#444;font-family:'Open Sans Condensed', sans-serif;font-weight:300;margin:0 auto;max-width:48rem;line-height:1.45;padding:0.25rem}h1,h2,h3,h4,h5,h6{font-family:Arimo, Helvetica, sans-serif}h1,h2,h3{border-bottom:2px solid #fafafa;margin-bottom:1.15rem;padding-bottom:0.5rem;text-align:center}blockquote{border-left:8px solid #fafafa;padding:1rem}code,pre{background-color:#fafafa}
-    </style>
+        <p>
+            Display an image in a responsive imagebox
+            <strong>without</strong> jQuery. Only 2 kB (minified and gzipped)!
+        </p>
 
-</head>
-<body>
+        <p>
+            <a
+                href="https://github.com/tobiasroeder/ImageBox/releases/tag/1.3.1"
+                ><img
+                    src="https://img.shields.io/github/v/release/tobiasroeder/ImageBox?style=flat-square"
+            /></a>
+            <a href="https://github.com/tobiasroeder/ImageBox/issues"
+                ><img
+                    src="https://img.shields.io/github/issues/tobiasroeder/ImageBox?style=flat-square"
+            /></a>
+            <a
+                href="https://github.com/tobiasroeder/ImageBox/blob/master/LICENSE.md"
+                ><img
+                    src="https://img.shields.io/github/license/tobiasroeder/ImageBox?style=flat-square"
+            /></a>
+            <a href="https://www.jsdelivr.com/package/gh/tobiasroeder/ImageBox"
+                ><img
+                    src="https://data.jsdelivr.com/v1/package/gh/tobiasroeder/ImageBox/badge"
+            /></a>
+        </p>
 
-    <h1>ImageBox</h1>
+        <h5>Include the CSS and the JS files:</h5>
 
-    <p>Display an image in a responsive imagebox <u>without</u> jQuery. Only 2 kB (minified and gzipped)!</p>
+        <div class="pre">
+            <code
+                ><span style="color: #000080">&lt;link</span>
+                <span style="color: #008080">rel</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"stylesheet"</span>
+                <span style="color: #008080">href</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"dist/imagebox.min.css"</span
+                ><span style="color: #000080">&gt;</span></code
+            >
+            <br />
+            <code
+                ><span style="color: #000080">&lt;script</span>
+                <span style="color: #008080">src</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"dist/imagebox.min.js"</span
+                ><span style="color: #000080">&gt;&lt;script&gt;</span></code
+            >
+        </div>
 
-    <p>
-        <a href="https://github.com/tobiasroeder/ImageBox/releases/tag/1.3.1"><img src="https://img.shields.io/github/v/release/tobiasroeder/ImageBox?style=flat-square"></a>
-        <a href="https://github.com/tobiasroeder/ImageBox/issues"><img src="https://img.shields.io/github/issues/tobiasroeder/ImageBox?style=flat-square"></a>
-        <a href="https://github.com/tobiasroeder/ImageBox/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/tobiasroeder/ImageBox?style=flat-square"></a>
-    </p>
+        <h5>
+            To make the ImageBox work, you only need to add a single attribute
+            (<code>data-imagebox</code>):
+        </h5>
 
-    <h5>Include the CSS and the JS files:</h5>
+        <div class="pre">
+            <code
+                ><span style="color: #000080">&lt;img</span>
+                <span style="color: #008080">src</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"img/san-francisco.jpg"</span>
+                <span style="color: #008080">alt</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"San Francisco"</span>
+                <strong style="color: #008080">data-imagebox</strong
+                ><span style="color: #000080">></span></code
+            >
+        </div>
 
-    <pre>
-&lt;link rel="stylesheet" href="dist/imagebox.min.css"&gt;
-&lt;script src="dist/imagebox.min.js"&gt;&lt;/script&gt;
-</pre>
+        <h5>
+            If you need a gallery just add an gallery-ID
+            <i
+                >(each image with this attribute and this name is bundled to a
+                gallery)</i
+            >:
+        </h5>
 
-    <h5>To make the ImageBox work, you only need to add a single attribute (<code>data-imagebox</code>):</h5>
+        <div class="pre">
+            <code>
+                <em style="color: #999999">&lt;!-- Gallery 1 --&gt;</em>
+            </code>
+            <br />
+            <code>
+                <span style="color: #000080">&lt;img</span>
+                <span style="color: #008080">src</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"img/san-francisco.jpg"</span>
+                <span style="color: #008080">alt</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"San Francisco"</span>
+                <span style="color: #008080">data-imagebox</span
+                ><strong
+                    ><span style="color: #000080">=</span
+                    ><span style="color: #dd1144">"g1"</span></strong
+                ><span style="color: #000080">></span>
+            </code>
+            <br />
+            <code>
+                <span style="color: #000080">&lt;img</span>
+                <span style="color: #008080">src</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"img/new-york.jpg"</span>
+                <span style="color: #008080">alt</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"New York"</span>
+                <span style="color: #008080">data-imagebox</span
+                ><strong
+                    ><span style="color: #000080">=</span
+                    ><span style="color: #dd1144">"g1"</span></strong
+                ><span style="color: #000080">></span></code
+            >
+            <br />
+            <br />
+            <code>
+                <em style="color: #999999">&lt;!-- Gallery 2 --&gt;</em>
+            </code>
+            <br />
+            <code>
+                <span style="color: #000080">&lt;img</span>
+                <span style="color: #008080">src</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"img/chicago.jpg"</span>
+                <span style="color: #008080">alt</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"Chicago"</span>
+                <span style="color: #008080">data-imagebox</span
+                ><strong
+                    ><span style="color: #000080">=</span
+                    ><span style="color: #dd1144">"g2"</span></strong
+                ><span style="color: #000080">></span>
+            </code>
+            <br />
+            <code>
+                <span style="color: #000080">&lt;img</span>
+                <span style="color: #008080">src</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"img/detroit.jpg"</span>
+                <span style="color: #008080">alt</span
+                ><span style="color: #000080">=</span
+                ><span style="color: #dd1144">"Detroit"</span>
+                <span style="color: #008080">data-imagebox</span
+                ><strong
+                    ><span style="color: #000080">=</span
+                    ><span style="color: #dd1144">"g2"</span></strong
+                ><span style="color: #000080">></span></code
+            >
+        </div>
 
-<pre>
-&lt;img src"img/san-francisco.jpg" alt="San Francisco" <b>data-imagebox</b>&gt;
-</pre>
+        <h5>
+            More information on
+            <a href="https://github.com/tobiasroeder/ImageBox#readme">GitHub</a
+            >.
+        </h5>
 
-    <h5>If you need a gallery just add an gallery-ID <i>(each image with this attribute and this name is bundled to a gallery)</i>:</h5>
+        <br />
 
-<pre>
-<i>&lt;!-- Gallery 1 --&gt;</i>
-&lt;img src="img/san-francisco.jpg" alt="San Francisco" data-imagebox<b>="g1"</b>&gt;
-&lt;img src="img/new-york.jpg" alt="New York" data-imagebox<b>="g1"</b>&gt;
-
-<i>&lt;!-- Gallery 2 --&gt;</i>
-&lt;img src="img/seattle.jpg" alt="Seattle" data-imagebox<b>="g2"</b>&gt;
-&lt;img src="img/detroit.jpg" alt="Detroit" data-imagebox<b>="g2"</b>&gt;
-</pre>
-
-    <h5>More information on <a href="https://github.com/tobiasroeder/ImageBox#readme">GitHub</a>.</h5>
-
-    <br>
-
-    <p>Badges (<a href="https://shields.io">Shields.io</a>) & CSS Theme (<a href="https://github.com/markdowncss/modest">Modest</a>)</p>
-
-</body>
+        <p>
+            Badges (<a href="https://shields.io">Shields.io</a>) & CSS Theme (<a
+                href="https://github.com/markdowncss/modest"
+                >Modest</a
+            >)
+        </p>
+    </body>
 </html>

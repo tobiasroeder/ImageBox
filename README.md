@@ -1,16 +1,19 @@
 [![](https://data.jsdelivr.com/v1/package/gh/tobiasroeder/ImageBox/badge)](https://www.jsdelivr.com/package/gh/tobiasroeder/ImageBox)
 
-## Documentation
+# ImageBox Documentation
 
-ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/releases/tag/1.3.1)
+[![](https://img.shields.io/github/v/release/tobiasroeder/ImageBox?style=flat-square&label=Release)](https://github.com/tobiasroeder/ImageBox/releases/tag/1.3.2)
+[![](https://img.shields.io/github/issues/tobiasroeder/ImageBox?style=flat-square&label=Issues)](https://github.com/tobiasroeder/ImageBox/issues)
+[![](https://img.shields.io/github/license/tobiasroeder/ImageBox?style=flat-square&label=License)](https://github.com/tobiasroeder/ImageBox/blob/master/LICENSE)
+[![](https://data.jsdelivr.com/v1/package/gh/tobiasroeder/ImageBox/badge)](https://www.jsdelivr.com/package/gh/tobiasroeder/ImageBox)
 
 ---
 
 ### Include this files:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.1/dist/imagebox.min.css">
-<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.1/dist/imagebox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.2/dist/imagebox.min.css">
+<script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.3.2/dist/imagebox.min.js"></script>
 ```
 ---
 
@@ -20,7 +23,8 @@ ImageBox latest version [1.3.1](https://github.com/tobiasroeder/imagebox/release
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.min.css">
 <script src="https://cdn.jsdelivr.net/gh/tobiasroeder/imagebox@1.2.0/dist/imagebox.ie.min.js"></script>
 ```
-> Currently only version 1.2.0 available
+> Currently only version 1.2.0 is available.
+> _Since 1.3.0 is the support dropped._
 
 ---
 
@@ -109,16 +113,15 @@ An live example can be found on CodePen. You can also play there with the ImageB
 
 Browser | Version | Known Issues
 --- | --- | ---
-Safari | 16.2 |
-Safari (iOS) | 16.3.1 |
-Chrome | 110.0.5481.178 |
-Opera | 96.0.4693.31 |
-Firefox | 110.0.1 |
-Microsoft Edge | 110.0.1587.63 |
-<!-- Chrome (Android) | 80.0.3987.162 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11)
-Samsung Internet | 13.2.3.2 | [#11](https://github.com/tobiasroeder/ImageBox/issues/11) -->
+Safari | 17.3.1 |
+Safari (iOS) | 17.4.1 |
+Chrome | 123.0.6312.87 (arm64) |
+Opera | 109.0.5097.35 (arm64) |
+Firefox | 124.0.1 (64-Bit) |
+Microsoft Edge | 123.0.2420.65 (arm64) |
+Arc | 1.36.0 |
 
-> imagebox.css & imagebox.js (v1.3.1)
+> imagebox.css & imagebox.js (v1.3.2)
 
 ---
 
